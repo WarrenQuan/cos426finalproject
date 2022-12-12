@@ -6,12 +6,14 @@
  * handles window resizes.
  *
  */
-import { WebGLRenderer, OrthographicCamera, Vector3, Scene, Mesh, BoxGeometry, MeshBasicMaterial} from 'three';
+// CAN AND SHOULD TRY TO MODULARIZE SOME OF THE CODE
+import { WebGLRenderer, OrthographicCamera, Vector3, Scene, Mesh, BoxGeometry, MeshBasicMaterial, TextureLoader, PlaneGeometry, RepeatWrapping, sRGBEncoding} from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
 
 // Set up the scene, camera, and renderer
 const scene = new SeedScene();
+// makes the camera top down (Orthographic Camera)
 const camera = new OrthographicCamera(
     window.innerWidth / -2,
     window.innerWidth / 2,
@@ -28,7 +30,9 @@ document.body.appendChild(renderer.domElement);
 
 // Set the initial position and orientation of the camera
 camera.position.set(0, 0, 10);
+// can use lookAt to follow player position too
 camera.lookAt(0, 0, 0);
+
 // Set up the player character
 var playerGeometry = new BoxGeometry(20, 20, 20);
 var playerMaterial = new MeshBasicMaterial({
@@ -39,15 +43,21 @@ player.position.set(0, 0, 0);
 scene.add(player);
 
 // Set up the room
-var roomGeometry = new BoxGeometry(500, 500, 500);
+const roomGeometry = new PlaneGeometry( window.innerWidth - 20,  window.innerHeight - 20);
+const groundTexture = new TextureLoader().load('src/assets/dungeontexture.jpeg');
+// ground texture
+groundTexture.wrapS = groundTexture.wrapT = RepeatWrapping;
+groundTexture.repeat.set( 10, 10 );
+groundTexture.anisotropy = 16;
+groundTexture.encoding = sRGBEncoding;
 var roomMaterial = new MeshBasicMaterial({
-  color: 0x12342,
-  wireframe: true,
-});
-var room = new Mesh(roomGeometry, roomMaterial);
+	map: groundTexture
+  });
+const room = new Mesh(roomGeometry, roomMaterial);
 room.position.set(0, 0, 0);
 scene.add(room);
 
+// convert to https://threejs.org/docs/#api/en/math/Box3
 const box = new Mesh(
     new BoxGeometry(20, 20, 20),
     new MeshBasicMaterial({ color: 0x00ff00 })
@@ -62,27 +72,19 @@ for(var i = 1; i < 4; i++){
     }
 };
 
-// Set up renderer, canvas, and minor CSS adjustments
-renderer.setPixelRatio(window.devicePixelRatio);
-const canvas = renderer.domElement;
-canvas.style.display = 'block'; // Removes padding below canvas
-document.body.style.margin = 0; // Removes margin around page
-document.body.style.overflow = 'hidden'; // Fix scrolling
-document.body.appendChild(canvas);
-
-// Move the player
+// -- FUNCTION FOR PLAYER MOVEMENT -- //
 const speed = 15;
 function onKeyDown(event) {
     console.log( player.position.y )
-  if(event.keyCode == 38 && player.position.y < window.innerHeight / 2 - 10) {
+  if(event.keyCode == 38 && player.position.y < window.innerHeight / 2 - 20) {
     player.position.y += speed;
     moveBox("down")
   }
-  if (event.keyCode == 40 && player.position.y > window.innerHeight / -2 + 10){
+  if (event.keyCode == 40 && player.position.y > window.innerHeight / -2 + 20){
     player.position.y -= speed;
     moveBox("up")
   }
-  if (event.keyCode == 37 && player.position.x > window.innerWidth / -2 + 10){
+  if (event.keyCode == 37 && player.position.x > window.innerWidth / -2 + 20){
     player.position.x -= speed;
     moveBox("left")
   }
@@ -95,6 +97,7 @@ function onKeyDown(event) {
   console.log("POS Y" + player.position.y)
 }
 
+// -- FUNCTION FOR BOX MOVEMENT -- //
 function moveBox(direction){
     // Move the box
     const boxSpeed = 20;
@@ -112,6 +115,14 @@ function moveBox(direction){
             box.position.x += boxSpeed;
     }
 }
+
+// Set up renderer, canvas, and minor CSS adjustments
+renderer.setPixelRatio(window.devicePixelRatio);
+const canvas = renderer.domElement;
+canvas.style.display = 'block'; // Removes padding below canvas
+document.body.style.margin = 0; // Removes margin around page
+document.body.style.overflow = 'hidden'; // Fix scrolling
+document.body.appendChild(canvas);
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
