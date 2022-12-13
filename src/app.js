@@ -70,32 +70,40 @@ room.boundingBox = room.geometry.boundingBox.clone();
 let boxes = []
 const boxSize = 40
 
-const box = new Mesh(
-  new BoxGeometry(boxSize, boxSize, boxSize),
-  new MeshBasicMaterial({ color: 0x00ff00, 
-  wireframe: true,})
-);
-  box.position.set(boxSize * 2, boxSize * 2, 0);
-  scene.add(box);
-  box.geometry.computeBoundingBox();
-  box.boundingBox = box.geometry.boundingBox.clone();
+// const box = new Mesh(
+//   new BoxGeometry(boxSize, boxSize, boxSize),
+//   new MeshBasicMaterial({ color: 0x00ff00, 
+//   wireframe: true,})
+// );
+//   box.position.set(boxSize * 2, boxSize * 2, 0);
+//   scene.add(box);
+//   box.geometry.computeBoundingBox();
+//   box.boundingBox = box.geometry.boundingBox.clone();
 
 // need to find some way to make multiple
 // Create multiple boxes for pushing
-// for(var i = 1; i < 4; i++){
-//     for(var j = 1; j < 4; j++){
-//       const box = new Mesh(
-//         new BoxGeometry(boxSize, boxSize, boxSize),
-//         new MeshBasicMaterial({ color: 0x00ff00, 
-//         wireframe: true,})
-//       );
-//         box.position.set(boxSize * 2 * i, boxSize * 2 * j, 0);
-//         scene.add(box);
-//         box.geometry.computeBoundingBox();
-//         box.boundingBox = box.geometry.boundingBox.clone();
-//         boxes.push(box)
-//     }
-// };
+for(var i = -3; i < 4; i++){
+    for(var j = 1; j < 4; j++){
+      const box = new Mesh(
+        new BoxGeometry(boxSize, boxSize, boxSize),
+        new MeshBasicMaterial({ color: 0x00ff00, 
+        wireframe: true,})
+      );
+      box.geometry.computeBoundingBox();
+      box.boundingBox = box.geometry.boundingBox.clone();
+        box.position.set(boxSize * 2 * i, boxSize * 2 * j, 0);
+        // kinda buggy
+        // box.position.set(Math.floor(Math.random() * window.innerHeight) - (window.innerHeight / 2), Math.floor(Math.random() * window.innerWidth) - (window.innerWidth / 2), 0);
+        scene.add(box);
+        boxes.push(box)
+        console.log(boxes.length)
+    }
+};
+
+// for(var box in boxes){
+//   box.geometry.computeBoundingBox();
+//   box.boundingBox = box.geometry.boundingBox.clone();
+// }
 
 // -- FUNCTION FOR PLAYER MOVEMENT -- //
 const speed = playerSize/2;
@@ -146,19 +154,18 @@ function moveBox(direction){
     // Check for collisions between the player and the box
     // handling simple collision
     // NEED BETTER COLLISION
-    // for(var box in boxes){
-    console.log("BOX",box)
-    if (player.boundingBox.intersectsBox(box.boundingBox)) {
+    for(var i = 0; i < boxes.length; i++){
+    if (player.boundingBox.intersectsBox(boxes[i].boundingBox)) {
         console.log(direction)
         if(direction === "down")
-            box.position.y -= boxSpeed;
+        boxes[i].position.y -= boxes[i];
         if(direction === "up")
-            box.position.y += boxSpeed;
+        boxes[i].position.y += boxSpeed;
         if(direction === "left")
-            box.position.x -= boxSpeed;
+        boxes[i].position.x -= boxSpeed;
         if(direction === "right")
-            box.position.x += boxSpeed;
-    //}
+        boxes[i].position.x += boxSpeed;
+    }
   }
 }
 
@@ -177,9 +184,9 @@ const onAnimationFrameHandler = (timeStamp) => {
     window.requestAnimationFrame(onAnimationFrameHandler);
     window.addEventListener('keydown', onKeyDown, true);
     player.boundingBox.copy(player.geometry.boundingBox).applyMatrix4(player.matrixWorld);
-    // for(var box in boxes){
-      box.boundingBox.copy(box.geometry.boundingBox).applyMatrix4(box.matrixWorld);
-   // }
+    for(var i = 0; i < boxes.length; i++){
+      boxes[i].boundingBox.copy(boxes[i].geometry.boundingBox).applyMatrix4(boxes[i].matrixWorld);
+   }
     room.boundingBox.copy(room.geometry.boundingBox).applyMatrix4(room.matrixWorld);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
