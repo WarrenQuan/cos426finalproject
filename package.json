@@ -2,15 +2,15 @@
   "name": "lower-case-dashed-name-of-project",
   "repository": "cos426finalproject",
   "version": "0.1.0",
-  "title": "PROJECT TITLE HERE",
-  "description": "SHORT DESCRIPTION OF PROJECT HERE. ONE TO TWO SENTENCES MAX",
+  "title": "Puzzled at Princeton",
+  "description": "Eisgruber has locked you under Nassau Hall in citation of academic mediocrity. To test whether you are still smart enough to stay at Princeton, Eisgruber has built yet another high aspirational environment where you must finish all the puzzles laid out before you can escape back into the orange bubble.",
   "keywords": [
     "Princeton",
     "graphics",
     "three.js",
     "COS 426",
     "ivy league",
-    "keyword1",
+    "puzzle",
     "keyword2",
     "...",
     "this last entry CANNOT have a comma after it ->"
