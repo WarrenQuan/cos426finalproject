@@ -150,7 +150,7 @@ function moveBox(direction){
     if (player.boundingBox.intersectsBox(boxes[i].boundingBox)) {
         console.log(direction)
         if(direction === "down")
-        boxes[i].position.y -= boxes[i];
+        boxes[i].position.y -= boxSpeed;
         if(direction === "up")
         boxes[i].position.y += boxSpeed;
         if(direction === "left")
