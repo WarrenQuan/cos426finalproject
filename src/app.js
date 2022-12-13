@@ -29,13 +29,13 @@ document.body.appendChild(renderer.domElement);
 
 
 // Set the initial position and orientation of the camera
-camera.position.set(0, -50, 140);
+camera.position.set(0, -50, 140); // angled to like legend of zelda
 // can use lookAt to follow player position too
 camera.lookAt(0, 0, 0);
 
+// -------- PLAYER CODE AND MESH ---------- // 
 const playerSize = 40
 const playerHeight = 100
-// Set up the player character
 var playerGeometry = new BoxGeometry(playerSize, playerSize, playerHeight);
 var playerMaterial = new MeshBasicMaterial({
   color: 0xff0000,
@@ -44,13 +44,15 @@ var playerMaterial = new MeshBasicMaterial({
 var player = new Mesh(playerGeometry, playerMaterial);
 player.geometry.computeBoundingBox();
 player.boundingBox = player.geometry.boundingBox.clone();
-
 player.position.set(0, 0, playerHeight / 2);
 scene.add(player);
+// -------- PLAYER CODE AND MESH END ---------- // 
 
+// -------- ROOM/FLOOR CODE AND MESH (JUST A PLANE) ---------- // 
 // Set up the room
 const roomGeometry = new PlaneGeometry( window.innerWidth - 20, window.innerHeight - 20);
 const groundTexture = new TextureLoader().load('src/assets/dungeontexture.jpeg');
+
 // ground texture
 groundTexture.wrapS = groundTexture.wrapT = RepeatWrapping;
 groundTexture.repeat.set( 10, 10 );
@@ -60,25 +62,18 @@ var roomMaterial = new MeshBasicMaterial({
 	map: groundTexture,
   side: DoubleSide
   });
+
 const room = new Mesh(roomGeometry, roomMaterial);
 room.geometry.compu
 room.position.set(0, 0, 0);
 scene.add(room);
 room.geometry.computeBoundingBox();
 room.boundingBox = room.geometry.boundingBox.clone();
+// -------- ROOM/FLOOR CODE AND MESH END ---------- // 
 
+// -------- BOXES CODE ---------- // 
 let boxes = []
 const boxSize = 40
-
-// const box = new Mesh(
-//   new BoxGeometry(boxSize, boxSize, boxSize),
-//   new MeshBasicMaterial({ color: 0x00ff00, 
-//   wireframe: true,})
-// );
-//   box.position.set(boxSize * 2, boxSize * 2, 0);
-//   scene.add(box);
-//   box.geometry.computeBoundingBox();
-//   box.boundingBox = box.geometry.boundingBox.clone();
 
 // need to find some way to make multiple
 // Create multiple boxes for pushing
@@ -100,10 +95,7 @@ for(var i = -3; i < 4; i++){
     }
 };
 
-// for(var box in boxes){
-//   box.geometry.computeBoundingBox();
-//   box.boundingBox = box.geometry.boundingBox.clone();
-// }
+// -------- BOXES CODE END ---------- // 
 
 // -- FUNCTION FOR PLAYER MOVEMENT -- //
 const speed = playerSize/2;
@@ -111,7 +103,6 @@ function onKeyDown(event) {
     console.log("PLAYER", player.boundingBox)
     console.log("ROOM",room.boundingBox)
      console.log(window.innerWidth - 20, window.innerHeight - 20)
-  // const distance = player.position.distanceTo(room.po)
   //console.log(distance)
   if(event.keyCode == 38) { // up
     console.log("UP", room.boundingBox.max.y, player.position.y + speed)
@@ -146,8 +137,9 @@ function onKeyDown(event) {
   console.log("POS X" + player.position.x)
   console.log("POS Y" + player.position.y)
 }
+// -- FUNCTION FOR PLAYER END -- //
 
-// -- FUNCTION FOR BOX MOVEMENT -- //
+// -- FUNCTION FOR BOX MOVEMENT AND COLLISION -- //
 function moveBox(direction){
     // Move the box
     const boxSpeed = boxSize;
@@ -168,6 +160,7 @@ function moveBox(direction){
     }
   }
 }
+// -- FUNCTION FOR BOX MOVEMENT AND COLLISION END -- //
 
 // Set up renderer, canvas, and minor CSS adjustments
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -176,17 +169,17 @@ canvas.style.display = 'block'; // Removes padding below canvas
 document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
-var i = 0
+
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
     window.addEventListener('keydown', onKeyDown, true);
+    // continuously update bounding boxes for movement
     player.boundingBox.copy(player.geometry.boundingBox).applyMatrix4(player.matrixWorld);
-    for(var i = 0; i < boxes.length; i++){
+    for(var i = 0; i < boxes.length; i++)
       boxes[i].boundingBox.copy(boxes[i].geometry.boundingBox).applyMatrix4(boxes[i].matrixWorld);
-   }
     room.boundingBox.copy(room.geometry.boundingBox).applyMatrix4(room.matrixWorld);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
