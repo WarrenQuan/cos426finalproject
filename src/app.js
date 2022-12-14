@@ -10,6 +10,7 @@
 import {
     WebGLRenderer,
     OrthographicCamera,
+    THREE,
     Vector3,
     Scene,
     Mesh,
@@ -41,6 +42,7 @@ const camera = new OrthographicCamera(
     1000
 );
 const renderer = new WebGLRenderer();
+//renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -60,38 +62,45 @@ const sound = new Audio(listener);
 // -------- PLAYER CODE AND MESH ---------- //
 const playerSize = 40;
 const playerHeight = 100;
-// const loader = new GLTFLoader();
-// // load a resource
-// loader.load(
-//     // resource URL
-//     'src/assets/Chibi_hp.gltf',
-//     // called when resource is loaded
-//     function (object) {
-//         console.log(object.scene.position)
-//         object.scene.scale.set(100, 100, 100); 
-//         console.log(object.scene)
-//         console.log( object.rotation)
-//         scene.add(object.scene);
-//         // if (object) {
-//         //     object.rotation.x += 20;
-//         // }
-//     },
-//     // called when loading is in progresses
-//     function (xhr) {
-//         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-//     },
-//     // called when loading has errors
-//     function (error) {
-//         console.log('An error happened', error);
-//     }
-// );
+const loader = new GLTFLoader();
+// load a resource
+var p; 
+loader.load(
+    // resource URL
+    'src/assets/untitled.gltf',
+    // called when resource is loaded
+    function (object) {
+    
+        p = object.scene
+        console.log(object.scene.position)
+        object.scene.scale.set(100, 100, 100); 
+        console.log(object.scene)
+        console.log( object.rotation)
+        scene.add(object.scene);
+        // if (object) {
+        //     object.rotation.x += 20;
+        // }
+        //geometry = p.getObjectByName('untitled').geometry;
+    },
+    // called when loading is in progresses
+    function (xhr) {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+    },
+    // called when loading has errors
+    function (error) {
+        console.log('An error happened', error);
+    }
+);
 
 var playerGeometry = new BoxGeometry(playerSize, playerSize, playerHeight);
 var playerMaterial = new MeshBasicMaterial({
     color: 0xff0000,
     wireframe: true,
 });
-var player = new Mesh(playerGeometry, playerMaterial);
+
+//var player = new Mesh(playerGeometry, playerMaterial);
+var player = new Mesh(p, );
+// var player = new Mesh(object.scene.geometry , object.scene.texture);
 player.geometry.computeBoundingBox();
 player.boundingBox = player.geometry.boundingBox.clone();
 player.position.set(0, 0, playerHeight / 2);
