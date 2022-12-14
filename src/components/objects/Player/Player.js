@@ -21,6 +21,75 @@ class Player extends Group {
 
         this.name = 'player';
         loader.load(MODEL, (gltf) => {
+
+
+            // --- PLAYER MOVEMENT --- //
+            //const playerSize = ;
+            const speed = .25;
+            window.addEventListener('keydown', onKeyDown, true);
+            
+            function onKeyDown(event) {
+                if (event.keyCode == 38) {
+                   //console.log(gltf.scene.rotation)
+                    // up
+                    // if outside boundary of the room/plane, set to room bounding
+                   // if (room.boundingBox.max.y < player.position.y + speed)
+                        //player.position.y = room.boundingBox.max.y - 12;
+                    //else player.position.y += speed;
+                    gltf.scene.position.y += speed;
+                    if (gltf.scene.rotation.x != 270 * Math.PI / 180.0) {
+                        gltf.scene.rotation.x = 270 * Math.PI / 180.0;
+                        if (gltf.scene.rotation.y != 0) {
+                            gltf.scene.rotation.y = 0
+                        }
+                    }
+
+                    // move box if collide
+                    //moveBox('up');
+                }
+                if (event.keyCode == 40) {
+                    // down
+                    // if (room.boundingBox.min.y > player.position.y - speed)
+                    //     player.position.y = room.boundingBox.min.y + 12;
+                    gltf.scene.position.y -= speed;
+                    if (gltf.scene.rotation.x != 90 * Math.PI / 180.0) {
+                        gltf.scene.rotation.x = 90 * Math.PI / 180.0;
+                        if (gltf.scene.rotation.y != 0) {
+                            gltf.scene.rotation.y = 0
+                        }
+                    }
+                    // moveBox('down');
+                }
+                if (event.keyCode == 37) {
+                    // left
+                    // if (room.boundingBox.min.x > player.position.x - speed)
+                    //     player.position.x = room.boundingBox.min.x + 12;
+                    gltf.scene.position.x -= speed;
+                    // moveBox('left');
+                    if (gltf.scene.rotation.y != 270 * Math.PI / 180.0) {
+                        gltf.scene.rotation.y = 270 * Math.PI / 180.0;
+                        if (gltf.scene.rotation.x != 0) {
+                            gltf.scene.rotation.x = 0
+                        }
+                    }
+                }
+                if (event.keyCode == 39) {
+                    // right
+                    // if (room.boundingBox.max.x < player.position.x + speed)
+                    //     player.position.x = room.boundingBox.max.x - 12;
+                    gltf.scene.position.x += speed;
+                    //moveBox('right');
+                    if (gltf.scene.rotation.y != 90 * Math.PI / 180.0) {
+                        gltf.scene.rotation.y = 90 * Math.PI / 180.0;
+                        if (gltf.scene.rotation.x != 0) {
+                            gltf.scene.rotation.x = 0
+                        }
+                    }
+                }
+            }
+            // ----------------------- //
+
+           // gltf.scene.position.x = 1
             this.add(gltf.scene);
         });
 
@@ -56,7 +125,7 @@ class Player extends Group {
     update(timeStamp) {
         if (this.state.bob) {
             // Bob back and forth
-            this.rotation.z = 0.05 * Math.sin(timeStamp / 300);
+            // this.rotation.z = 0.05 * Math.sin(timeStamp / 300);
         }
         if (this.state.twirl > 0) {
             // Lazy implementation of twirl
