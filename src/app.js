@@ -27,66 +27,69 @@
 // } from 'three';
 import { WebGLRenderer, PerspectiveCamera, Vector3, OrthographicCamera, TextGeometry, FontLoader } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { SeedScene } from 'scenes';
+// import { SeedScene } from 'scenes';
 
-// Initialize core ThreeJS components
-const scene = new SeedScene();
-//const camera = new PerspectiveCamera();
-const renderer = new WebGLRenderer({ antialias: true });
+import { Scenes } from 'scenes';
+Scenes.create();
+
+// // Initialize core ThreeJS components
+// const scene = new SeedScene();
+// //const camera = new PerspectiveCamera();
+// const renderer = new WebGLRenderer({ antialias: true });
 
 // makes the camera top down (Orthographic Camera)
-const camera = new OrthographicCamera(
-    window.innerWidth / -140,
-    window.innerWidth / 140,
-    window.innerHeight / 140,
-    window.innerHeight / -140,
-    0,
-    1000
-);
+// const camera = new OrthographicCamera(
+//     window.innerWidth / -140,
+//     window.innerWidth / 140,
+//     window.innerHeight / 140,
+//     window.innerHeight / -140,
+//     0,
+//     1000
+// );
 
 // import { Scenes } from 'src/components/scenes';
 // Scenes.create();
 
 // Set up renderer, canvas, and minor CSS adjustments
-renderer.setPixelRatio(window.devicePixelRatio);
-const canvas = renderer.domElement;
+Scenes.renderer.setPixelRatio(window.devicePixelRatio);
+const canvas = Scenes.renderer.domElement;
 canvas.style.display = 'block'; // Removes padding below canvas
 document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
 
-// Set the initial position and orientation of the camera
-camera.position.set(0, 5, 14); // angled to like legend of zelda
-// can use lookAt to follow player position too
-camera.lookAt(0, 0, 0);
+// // Set the initial position and orientation of the camera
+// camera.position.set(0, 5, 14); // angled to like legend of zelda
+// // can use lookAt to follow player position too
+// camera.lookAt(0, 0, 0);
 
 // Set up controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-controls.enablePan = false;
-controls.minDistance = 4;
-controls.maxDistance = 16;
-controls.update();
+// const controls = new OrbitControls(camera, canvas);
+// controls.enableDamping = true;
+// controls.enablePan = false;
+// controls.minDistance = 4;
+// controls.maxDistance = 16;
+// controls.update();
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
-    controls.update();
-    renderer.render(scene, camera);
+    // controls.update();
+    Scenes.renderer.render(Scenes.currentScene, Scenes.currentScene.camera);
     // scene.update && scene.update(timeStamp);
-    //currentScene.update && Scenes.currentScene.update(timeStamp);
+    Scenes.currentScene.update && Scenes.currentScene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
-// Resize Handler
-const windowResizeHandler = () => {
-    const { innerHeight, innerWidth } = window;
-    renderer.setSize(innerWidth, innerHeight);
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
+// // Resize Handler
+// const windowResizeHandler = () => {
+//     const { innerHeight, innerWidth } = window;
+//     renderer.setSize(innerWidth, innerHeight);
+//     camera.aspect = innerWidth / innerHeight;
+//     camera.updateProjectionMatrix();
     
-};
-windowResizeHandler();
-window.addEventListener('resize', windowResizeHandler, false);
+// };
+// windowResizeHandler();
+// window.addEventListener('resize', windowResizeHandler, false);

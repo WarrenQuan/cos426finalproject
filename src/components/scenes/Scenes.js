@@ -1,5 +1,5 @@
-import { WebGLRenderer, PerspectiveCamera, Vector3, OrthographicCamera, TextGeometry, FontLoader } from 'three';
-import { SeedScene } from 'scenes';
+import { WebGLRenderer} from 'three';
+import SeedScene from './SeedScene';
 class Scenes {
     constructor(){
         this.scenes = {};
@@ -13,7 +13,7 @@ class Scenes {
         
         this.scenes['SeedScene'] = new SeedScene();
 
-        this.currentScene = this.scenes['title'];
+        this.currentScene = this.scenes['SeedScene'];
         this.currentScene.addEvents();
     }
 }

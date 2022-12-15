@@ -1,5 +1,5 @@
 import * as Dat from 'dat.gui';
-import { Scene, Color, FontLoader, TextGeometry, TextureLoader, OrthographicCamera } from 'three';
+import { Scene, Color, MeshPhongMaterial, FontLoader, TextGeometry, TextureLoader, OrthographicCamera } from 'three';
 import { BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 //import { Flower, Land, Player } from 'objects';
 import { Land, Player, Grub, Text} from 'objects';
@@ -29,19 +29,27 @@ class SeedScene extends Scene {
         const player = new Player(this);
         const grub = new Grub(this);
 
-        // // camera
-        // const camera = new OrthographicCamera(
-        //     window.innerWidth / -140,
-        //     window.innerWidth / 140,
-        //     window.innerHeight / 140,
-        //     window.innerHeight / -140,
-        //     0,
-        //     1000
-        // );
-        // // Set the initial position and orientation of the camera
-        // camera.position.set(0, 5, 14); // angled to like legend of zelda
-        // // can use lookAt to follow player position too
-        // camera.lookAt(0, 0, 0);
+        // camera
+        this.camera = new OrthographicCamera(
+            window.innerWidth / -140,
+            window.innerWidth / 140,
+            window.innerHeight / 140,
+            window.innerHeight / -140,
+            0,
+            1000
+        );
+        // Set the initial position and orientation of the camera
+        this.camera.position.set(0, 5, 14); // angled to like legend of zelda
+        // can use lookAt to follow player position too
+        this.camera.lookAt(0, 0, 0);
+
+        this.windowResizeHandler = () => {
+            const { innerHeight, innerWidth } = window;
+            Scenes.renderer.setSize(innerWidth, innerHeight);
+            this.camera.aspect = innerWidth / innerHeight;
+            this.camera.updateProjectionMatrix();
+            
+        };
 
         // const loader = new FontLoader();
         // let text;
@@ -140,8 +148,8 @@ class SeedScene extends Scene {
         // --- PLAYER MOVEMENT --- //
         //const playerSize = ;
         const speed = 1;
-        window.addEventListener('keydown', onKeyDown, true);
-        function onKeyDown(event) {
+        window.addEventListener('keydown', this.onKeyDown, true);
+        this.onKeyDown = (event) => {
             
             let old_player_pos = player.position.clone();
             let old_player_box_pos = player_box.position.clone();
@@ -200,7 +208,7 @@ class SeedScene extends Scene {
 
             if (event.keyCode == 32) {
                 if (player_box.boundingBox.intersectsBox(grub_box.boundingBox)){
-                    dialogue();
+                    this.dialogue();
                 }
             }
             console.log("IN GRUBER", player_box.boundingBox.intersectsBox(grub_box.boundingBox))
@@ -262,18 +270,27 @@ class SeedScene extends Scene {
 
     }
     
-    // addEvents(){
-    //     // Resize Handler
-    //     const windowResizeHandler = () => {
-    //         const { innerHeight, innerWidth } = window;
-    //         renderer.setSize(innerWidth, innerHeight);
-    //         camera.aspect = innerWidth / innerHeight;
-    //         camera.updateProjectionMatrix();
-            
-    //     };
-    //     windowResizeHandler();
-    //     window.addEventListener('resize', windowResizeHandler, false);
-    // }
+    addEvents(){
+        // Resize Handler
+        this.windowResizeHandler();
+        window.addEventListener('resize', this.windowResizeHandler, false);
+        window.addEventListener('keydown', this.onKeyDown, true);
+    }
+
+    dialogue(){
+        const loader = new FontLoader();
+        this.textMesh;
+        loader.load(PixelFont, function (font) {
+            const textGeometry = new TextGeometry('ASDFADSFADSFASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASD!', {
+                font: font,
+                size: 0.5,
+                height: 0,
+            });
+            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+            Scenes.scenes['SeedScene'].textMesh.position.set(0, 0, 2);
+            Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
+        });
+    }
 }
 function hasIntersection(object, boxes) {
     for (let i = 0; i < boxes.length; i++) {
@@ -354,24 +371,6 @@ function collision(object, direction, boxes) {
 
     }
 
-}
-
-function dialogue(){
-    const loader = new FontLoader();
-    let text;
-    loader.load(PixelFont, function (font) {
-        const textGeometry = new TextGeometry('ASDFADSFADSFASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASD!', {
-            font: font,
-            size: 0.5,
-            height: 0,
-        });
-        const mesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-        mesh.position.set(0, 0, 2);
-        Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].text);
-    });
-    // console.log(text.position)
-
-    console.log("TEXT", text)
 }
 
 
