@@ -21,7 +21,7 @@ class Scenes {
         this.scenes['SeedSceneThree'] = new SeedSceneThree();
         this.scenes['End'] = new End();
 
-        this.currentScene = this.scenes['Intro'];
+        this.currentScene = this.scenes['End'];
         this.currentScene.addEvents();
     }
 

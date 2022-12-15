@@ -72,7 +72,7 @@ class End extends Scene {
             const audioLoader = new AudioLoader();
             // replace music
             audioLoader.load(
-                'src/sounds/dungeon.mp3',
+                'src/sounds/Old Nassau - 2020 Virtual Commencement.mp3',
                 function (buffer) {
                     sound.setBuffer(buffer);
                     sound.setLoop(true);
