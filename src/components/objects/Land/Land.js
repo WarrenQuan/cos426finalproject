@@ -11,7 +11,7 @@ class Land extends Group {
             14
         );
         const groundTexture = new TextureLoader().load(
-            'src/components/objects/Land/dungeontexture.jpeg'
+            'src/components/objects/Land/con.jpeg'
         );
 
         

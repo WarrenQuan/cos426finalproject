@@ -105,15 +105,48 @@ class SeedScene extends Scene {
         // -------- BOXES --------//
         // need to find some way to make multiple
         // Create multiple boxes for pushing
-        const groundTexture = new TextureLoader().load(
-            'src/components/objects/Land/con.jpeg'
-        );
+        // const a = new TextureLoader().load(
+        //     'src/assets/letters/a.jpg'
+        // );
+        var letters = []
+        letters.push('src/assets/letters/a.jpg', 
+        'src/assets/letters/b.jpg', 
+        'src/assets/letters/c.jpg',
+        'src/assets/letters/d.jpg', 
+        'src/assets/letters/e.jpg',
+        'src/assets/letters/f.jpg', 
+        'src/assets/letters/g.jpg',
+        'src/assets/letters/h.jpg', 
+        'src/assets/letters/i.jpg',
+        'src/assets/letters/j.jpg', 
+        'src/assets/letters/k.jpg',
+        'src/assets/letters/l.jpg', 
+        'src/assets/letters/m.jpg',
+        'src/assets/letters/n.jpg', 
+        'src/assets/letters/o.jpg',
+        'src/assets/letters/p.jpg', 
+        'src/assets/letters/q.jpg',
+        'src/assets/letters/r.jpg', 
+        'src/assets/letters/s.jpg',
+        'src/assets/letters/t.jpg', 
+        'src/assets/letters/u.jpg',
+        'src/assets/letters/v.jpg', 
+        'src/assets/letters/w.jpg',
+        'src/assets/letters/x.jpg', 
+        'src/assets/letters/y.jpg',
+        'src/assets/letters/z.jpg'
+        )
+        var counter = 0;
         for (var i = -3; i < 4; i++) {
             for (var j = 1; j < 4; j++) {
+                
+                const boxTexture = new TextureLoader().load(
+                    letters[counter]
+                );
                 const box = new Mesh(
                     new BoxGeometry(1, 1, 1),
                     // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
-                    new MeshBasicMaterial({ map: groundTexture })
+                    new MeshBasicMaterial({name:counter, map: boxTexture })
                 );
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
@@ -121,8 +154,9 @@ class SeedScene extends Scene {
                                this.add(box);
                 this.addToUpdateList(box);
                 boxes.push(box);
-                block.push(box)
-
+                console.log(box.name);
+                block.push(box);
+                counter++;
             }
         }
         // -------- BOXES END --------//
