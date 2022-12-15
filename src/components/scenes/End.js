@@ -131,7 +131,7 @@ class End extends Scene {
 
     removeEvents() {
         window.removeEventListener('resize', this.windowResizeHandler, false);
-        window.removeEventListener('keydown', this.onKeyDown, true);
+        window.removeEventListener('keydown', this.onKeyDown, false);
     }
 
     dialogue(grub){
@@ -155,8 +155,8 @@ class End extends Scene {
             //if (event.key !== ' ') return;
             if (count >= 3){
                 this.remove(Scenes.scenes['End'].textMesh);  
-                window.addEventListener('keydown', this.onKeyDown, true);
-                window.removeEventListener('keydown', this.dialogueContinue, true); 
+                window.addEventListener('keydown', this.onKeyDown, false);
+                window.removeEventListener('keydown', this.dialogueContinue, false); 
             }
             else if (count === 1){
                 Scenes.scenes['End'].remove(Scenes.scenes['End'].textMesh);  
@@ -198,8 +198,8 @@ class End extends Scene {
             count++;
         }
         
-        window.removeEventListener('keydown', this.onKeyDown, true);
-        window.addEventListener('keydown', this.dialogueContinue, true);
+        window.removeEventListener('keydown', this.onKeyDown, false);
+        window.addEventListener('keydown', this.dialogueContinue, false);
         this.dialogueHappened = true;
     }
 }

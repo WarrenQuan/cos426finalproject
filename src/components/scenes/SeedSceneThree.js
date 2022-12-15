@@ -381,7 +381,7 @@ class SeedSceneThree extends Scene {
 
     removeEvents() {
         window.removeEventListener('resize', this.windowResizeHandler, false);
-        window.removeEventListener('keydown', this.onKeyDown, true);
+        window.removeEventListener('keydown', this.onKeyDown, false);
     }
 
     dialogue(player, grub){
@@ -420,8 +420,8 @@ class SeedSceneThree extends Scene {
             if (event.key !== ' ') return;
             // Scenes.scenes['SeedScene'].remove(Scenes.scenes['SeedScene'].textMesh);
         }
-        window.removeEventListener('keydown', this.onKeyDown, true);
-        window.addEventListener('keydown', this.dialogueContinue, true);
+        window.removeEventListener('keydown', this.onKeyDown, false);
+        window.addEventListener('keydown', this.dialogueContinue, false);
         this.dialogueHappened = true;
     }
 }
