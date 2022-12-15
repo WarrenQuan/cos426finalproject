@@ -2,7 +2,11 @@ import { WebGLRenderer} from 'three';
 import TitleScene from './TitleScene';
 import SeedScene from './SeedScene';
 import SeedSceneTwo from './SeedSceneTwo';
+import SeedSceneThree from './SeedSceneThree';
 import Intro from './Intro';
+import TransitionOne from './TransitionOne';
+import TransitionTwo from './TransitionTwo';
+import End from './End';
 class Scenes {
     constructor(){
         this.scenes = {};
@@ -22,7 +26,6 @@ class Scenes {
 
         this.currentScene = this.scenes['TitleScene'];
         this.currentScene.addEvents();
-        
     }
 
     switchScene(sceneKey) {

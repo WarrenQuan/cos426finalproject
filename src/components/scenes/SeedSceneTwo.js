@@ -1,3 +1,4 @@
+// What is the res college of the Moose?: MATHEY
 import * as Dat from 'dat.gui';
 import {
     Scene,
@@ -37,6 +38,8 @@ class SeedSceneTwo extends Scene {
         const lights = new BasicLights();
         const player = new Player(this);
         const grub = new Grub(this);
+        grub.position.x = 5
+        grub.position.y = -5
 
         // camera
         this.camera = new OrthographicCamera(
@@ -92,6 +95,8 @@ class SeedSceneTwo extends Scene {
         grub_box.geometry.computeBoundingBox();
         grub_box.boundingBox = grub_box.geometry.boundingBox.clone();
         grub_box.position.set(1, 0, -1 / 32);
+        grub_box.position.x += 5
+        grub_box.position.y -= 5
         this.addToUpdateList(grub_box);
         //----------GRUB BOUNDING BOX END -----------//
         var block = []
@@ -115,9 +120,10 @@ class SeedSceneTwo extends Scene {
             letters.push(
         'src/assets/letters/' + (i+10).toString(36) + '.jpg')
         var counter = 0;
-        for (var i = -3; i < 4; i++) {
+        for (var i = -5; i < 4; i++) {
             for (var j = 1; j < 4; j++) {
-                
+                if(counter == 26)
+                    break
                 const boxTexture = new TextureLoader().load(
                     letters[counter]
                 );
@@ -130,7 +136,7 @@ class SeedSceneTwo extends Scene {
                 box.name =  letters[counter]
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
-                box.position.set(2 * i, 2 * j, -1 / 32);
+                box.position.set(2 * i + 2, 2 * j, -1 / 32);
                                this.add(box);
                 this.addToUpdateList(box);
                 boxes.push(box);
@@ -140,14 +146,18 @@ class SeedSceneTwo extends Scene {
         }
 
         var holes = []
-        for (let index = 0; index < 5; index++) {
+        const boxTexture = new TextureLoader().load(
+            'src/assets/glass.png'
+        );
+        for (let index = 0; index < 6; index++) {
             const box = new Mesh(
-                new BoxGeometry(0.9, 0.9, 1),
+                new BoxGeometry(0.9, 0.9, 0.9),
                 // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
-                new MeshBasicMaterial({color: 0x00ff00, wireframe: true }));
+                new MeshBasicMaterial({color: 0xffffff, map: boxTexture}));
+
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
-                box.position.set(2 * (index-2), -3, -1 / 32);
+                box.position.set(2 * (index-2) - 1, -2, -1 / 32);
                 this.add(box);
                 this.addToUpdateList(box);
                 //boxes.push(box);
@@ -333,7 +343,7 @@ class SeedSceneTwo extends Scene {
             //         this.windowResizeHandler();
             //     }
             if (checkWin(boxes, holes)) {
-                console.log('yay')
+                Scenes.switchScene('TransitionTwo');
             }
         }
         // ----------------------- //
@@ -394,12 +404,12 @@ class SeedSceneTwo extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry('HELLO', {
+            const textGeometry = new TextGeometry('What is the res college of the Moose?', {
                 font: font,
                 size: 0.3,
                 height: 0,
             });
-            Scenes.scenes['SeedSceneTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x252b39}));
+            Scenes.scenes['SeedSceneTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
             Scenes.scenes['SeedSceneTwo'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
             Scenes.scenes['SeedSceneTwo'].add(Scenes.scenes['SeedSceneTwo'].textMesh);
         });
@@ -414,14 +424,15 @@ class SeedSceneTwo extends Scene {
 }
 // WINNING IF IT IS PUT WITH LETTERS FRIST
 function checkWin(boxes, holes) {
-    // box: 5 , 17 , 8 , 18 , 19
-    // holes: 0 , 1 , 2 , 3 , 4
+    // box: MATHEY
+    // holes: 
 
-    if(boxes[5].boundingBox.intersectsBox(holes[0].boundingBox) &&
-   boxes[17].boundingBox.intersectsBox(holes[1].boundingBox) &&
-   boxes[8].boundingBox.intersectsBox(holes[2].boundingBox) &&
-   boxes[18].boundingBox.intersectsBox(holes[3].boundingBox) &&
-   boxes[19].boundingBox.intersectsBox(holes[4].boundingBox))
+    if(boxes[12].boundingBox.intersectsBox(holes[0].boundingBox) &&
+   boxes[0].boundingBox.intersectsBox(holes[1].boundingBox) &&
+   boxes[19].boundingBox.intersectsBox(holes[2].boundingBox) &&
+   boxes[7].boundingBox.intersectsBox(holes[3].boundingBox) &&
+   boxes[4].boundingBox.intersectsBox(holes[4].boundingBox) &&
+   boxes[24].boundingBox.intersectsBox(holes[5].boundingBox))
         return true
     else
         return false
