@@ -1,5 +1,6 @@
 import { WebGLRenderer} from 'three';
 import SeedScene from './SeedScene';
+import Intro from './Intro';
 class Scenes {
     constructor(){
         this.scenes = {};
@@ -11,9 +12,17 @@ class Scenes {
         this.renderer = new WebGLRenderer({ antialias: true });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         
-        this.scenes['SeedScene'] = new SeedScene();
+        this.scenes['Intro'] = new Intro();
+        this.scenes['SeedScene'] = new SeedScene();        
 
-        this.currentScene = this.scenes['SeedScene'];
+        this.currentScene = this.scenes['Intro'];
+        this.currentScene.addEvents();
+        
+    }
+
+    switchScene(sceneKey) {
+        this.currentScene.removeEvents();
+        this.currentScene = this.scenes[sceneKey];
         this.currentScene.addEvents();
     }
 }
