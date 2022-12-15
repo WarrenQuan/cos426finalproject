@@ -1,4 +1,4 @@
-// Where do people flock to late meal?: FRIST
+// What is the train of Princeton?: DINKY
 import * as Dat from 'dat.gui';
 import {
     Scene,
@@ -17,7 +17,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { PixelFont } from '../objects/Fonts';
 import { Scenes } from '.';
 
-class SeedScene extends Scene {
+class SeedSceneThree extends Scene {
     constructor() {
         // Call parent Scene() constructor
         super();
@@ -344,7 +344,6 @@ class SeedScene extends Scene {
             //     }
             if (checkWin(boxes, holes)) {
                 console.log('yay')
-                Scenes.switchScene('SeedSceneTwo');
             }
         }
         // ----------------------- //
@@ -410,15 +409,13 @@ class SeedScene extends Scene {
                 size: 0.3,
                 height: 0,
             });
-            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
-            //Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1.5);
-            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 2);
-
-            Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
+            Scenes.scenes['SeedSceneThree'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
+            Scenes.scenes['SeedSceneThree'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
+            Scenes.scenes['SeedSceneThree'].add(Scenes.scenes['SeedSceneThree'].textMesh);
         });
         this.dialogueContinue = (event) => {
             if (event.key !== ' ') return;
-            // Scenes.scenes['SeedScene'].remove(Scenes.scenes['SeedScene'].textMesh);
+            // Scenes.scenes['SeedSceneThree'].remove(Scenes.scenes['SeedSceneThree'].textMesh);
         }
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);
@@ -427,14 +424,14 @@ class SeedScene extends Scene {
 }
 // WINNING IF IT IS PUT WITH LETTERS FRIST
 function checkWin(boxes, holes) {
-    // box: 5 , 17 , 8 , 18 , 19
+    // box: DINKY
     // holes: 0 , 1 , 2 , 3 , 4
 
-    if(boxes[5].boundingBox.intersectsBox(holes[0].boundingBox) &&
-   boxes[17].boundingBox.intersectsBox(holes[1].boundingBox) &&
-   boxes[8].boundingBox.intersectsBox(holes[2].boundingBox) &&
-   boxes[18].boundingBox.intersectsBox(holes[3].boundingBox) &&
-   boxes[19].boundingBox.intersectsBox(holes[4].boundingBox))
+    if(boxes[3].boundingBox.intersectsBox(holes[0].boundingBox) &&
+   boxes[8].boundingBox.intersectsBox(holes[1].boundingBox) &&
+   boxes[13].boundingBox.intersectsBox(holes[2].boundingBox) &&
+   boxes[10].boundingBox.intersectsBox(holes[3].boundingBox) &&
+   boxes[24].boundingBox.intersectsBox(holes[4].boundingBox))
         return true
     else
         return false
@@ -602,4 +599,4 @@ function collision(object, direction, boxes, land) {
     }
 }
 
-export default SeedScene;
+export default SeedSceneThree;
