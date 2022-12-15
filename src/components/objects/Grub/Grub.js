@@ -1,4 +1,4 @@
-import { Group, Vector3 } from 'three';
+import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './grub.gltf';
@@ -21,11 +21,12 @@ class Grub extends Group {
 
         this.name = 'grub';
         loader.load(MODEL, (gltf) => {
-           console.log(gltf.scene.position)
-           // set position based off of arrow keys
-           gltf.scene.position.x = 1
+            console.log(gltf.scene.position)
+            gltf.scene.position.x = 1
             this.add(gltf.scene);
+           // this.add(box)
         });
+        
 
         // Add self to parent's update list
        parent.addToUpdateList(this);
