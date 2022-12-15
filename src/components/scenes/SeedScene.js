@@ -239,10 +239,10 @@ class SeedScene extends Scene {
                     player.position.x -= speed;
                     player_box.position.x -= speed;
                 }
-                collision(player_box, 'left', boxes);
                 if (player.rotation.y != (270 * Math.PI) / 180.0) {
                     player.rotation.y = (270 * Math.PI) / 180.0;
                 }
+                collision(player_box, 'left', boxes);
             }
             if (event.keyCode == 39) {
                 // right
@@ -266,10 +266,10 @@ class SeedScene extends Scene {
                     player_box.position.x += speed;
                 }
 
-                collision(player_box, 'right', boxes);
                 if (player.rotation.y != (90 * Math.PI) / 180.0) {
                     player.rotation.y = (90 * Math.PI) / 180.0;
                 }
+                collision(player_box, 'right', boxes);
             }
 
             if (event.keyCode == 32 && !this.dialogueHappened) {
