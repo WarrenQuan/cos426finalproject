@@ -409,7 +409,9 @@ class SeedScene extends Scene {
                 height: 0,
             });
             Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
-            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
+            //Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1.5);
+            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 2);
+
             Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
         });
         this.dialogueContinue = (event) => {
