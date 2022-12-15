@@ -1,7 +1,9 @@
-import { Group, TextGeometry, FontLoader, Font } from 'three';
+import { Group, TextGeometry, FontLoader, Font, MeshPhongMaterial, Mesh} from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './untitled.gltf';
+import HelvetikerFontPath from 'three/examples/fonts/helvetiker_regular.typeface.json';
+import { PixelFont } from '../fonts'
 
 class Text extends Group {
     constructor(parent) {
@@ -11,32 +13,17 @@ class Text extends Group {
         // ---- TEXT --- //
         const loader = new FontLoader();
 
-        loader.load('fonts/helvetiker_bold.typeface.json', function (font) {
+        loader.load(PixelFont, function (font) {
 
-            const textGeometry = new TextGeometry('Hello three.js!', {
-                font: "helvetiker",
-                size: 80,
-                height: 5,
-                curveSegments: 12,
-                bevelEnabled: true,
-                bevelThickness: 10,
-                bevelSize: 8,
-                bevelOffset: 0,
-                bevelSegments: 5
-
+            const textGeometry = new TextGeometry('ASDFADSFADSFASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASD!', {
+                font: font,
+                size: 0.5,
+                height: 0,
             });
-            var textMaterial = new MeshBasicMaterial({
-                //--- transparent box code ---//
-                // transparent: true,
-                // opacity: 0,
-
-                //--- wire box code ---//
-                color: 0xff0000,
-            });
-            var mesh = new THREE.Mesh(textGeometry, textMaterial);
-            mesh.position.set(0, 0, -1 / 32);
-            this.add(mesh)
-            console.log("ah: ", mesh)
+            
+            const mesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+            console.log(mesh.position)
+            mesh.position.set(0, 0, 2);
         });
 
     }

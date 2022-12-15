@@ -11,13 +11,13 @@ class Land extends Group {
             window.innerWidth/50 - 2
         );
         const groundTexture = new TextureLoader().load(
-            'src/components/objects/Land/con.jpeg'
+            'src/components/objects/Land/furry.jpeg'
         );
 
         
         // ground texture
         groundTexture.wrapS = groundTexture.wrapT = RepeatWrapping;
-        groundTexture.repeat.set(10, 10);
+        groundTexture.repeat.set(2, 2);
         groundTexture.anisotropy = 16;
         groundTexture.encoding = sRGBEncoding;
         var roomMaterial = new MeshBasicMaterial({

@@ -44,6 +44,8 @@ const camera = new OrthographicCamera(
     1000
 );
 
+// import { Scenes } from 'src/components/scenes';
+// Scenes.create();
 
 // Set up renderer, canvas, and minor CSS adjustments
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -72,7 +74,8 @@ controls.update();
 const onAnimationFrameHandler = (timeStamp) => {
     controls.update();
     renderer.render(scene, camera);
-    scene.update && scene.update(timeStamp);
+    // scene.update && scene.update(timeStamp);
+    //currentScene.update && Scenes.currentScene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
