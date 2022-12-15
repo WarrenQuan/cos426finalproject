@@ -16,7 +16,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { PixelFont } from '../objects/Fonts';
 import { Scenes } from '.';
 
-class SeedScene extends Scene {
+class SeedSceneTwo extends Scene {
     constructor() {
         // Call parent Scene() constructor
         super();
@@ -394,18 +394,18 @@ class SeedScene extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry('HELLO?', {
+            const textGeometry = new TextGeometry('HELLO', {
                 font: font,
                 size: 0.3,
                 height: 0,
             });
-            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x252b39}));
-            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
-            Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
+            Scenes.scenes['SeedSceneTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x252b39}));
+            Scenes.scenes['SeedSceneTwo'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
+            Scenes.scenes['SeedSceneTwo'].add(Scenes.scenes['SeedSceneTwo'].textMesh);
         });
         this.dialogueContinue = (event) => {
             if (event.key !== ' ') return;
-            // Scenes.scenes['SeedScene'].remove(Scenes.scenes['SeedScene'].textMesh);
+            // Scenes.scenes['SeedSceneTwo'].remove(Scenes.scenes['SeedSceneTwo'].textMesh);
         }
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);
@@ -589,4 +589,4 @@ function collision(object, direction, boxes, land) {
     }
 }
 
-export default SeedScene;
+export default SeedSceneTwo;
