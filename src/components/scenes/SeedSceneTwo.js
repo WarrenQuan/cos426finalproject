@@ -16,7 +16,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { PixelFont } from '../objects/Fonts';
 import { Scenes } from '.';
 
-class SeedScene extends Scene {
+class SeedSceneTwo extends Scene {
     constructor() {
         // Call parent Scene() constructor
         super();
@@ -37,8 +37,6 @@ class SeedScene extends Scene {
         const lights = new BasicLights();
         const player = new Player(this);
         const grub = new Grub(this);
-        grub.position.x = 5
-        grub.position.y = -5
 
         // camera
         this.camera = new OrthographicCamera(
@@ -94,8 +92,6 @@ class SeedScene extends Scene {
         grub_box.geometry.computeBoundingBox();
         grub_box.boundingBox = grub_box.geometry.boundingBox.clone();
         grub_box.position.set(1, 0, -1 / 32);
-        grub_box.position.x += 5
-        grub_box.position.y -= 5
         this.addToUpdateList(grub_box);
         //----------GRUB BOUNDING BOX END -----------//
         var block = []
@@ -144,18 +140,14 @@ class SeedScene extends Scene {
         }
 
         var holes = []
-        const boxTexture = new TextureLoader().load(
-            'src/assets/glass.png'
-        );
         for (let index = 0; index < 5; index++) {
             const box = new Mesh(
-                new BoxGeometry(0.9, 0.9, 0.9),
+                new BoxGeometry(0.9, 0.9, 1),
                 // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
-                new MeshBasicMaterial({color: 0xffffff, map: boxTexture}));
-
+                new MeshBasicMaterial({color: 0x00ff00, wireframe: true }));
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
-                box.position.set(2 * (index-2), -2, -1 / 32);
+                box.position.set(2 * (index-2), -3, -1 / 32);
                 this.add(box);
                 this.addToUpdateList(box);
                 //boxes.push(box);
@@ -402,18 +394,18 @@ class SeedScene extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry('HELLO?', {
+            const textGeometry = new TextGeometry('HELLO', {
                 font: font,
                 size: 0.3,
                 height: 0,
             });
-            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
-            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
-            Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
+            Scenes.scenes['SeedSceneTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x252b39}));
+            Scenes.scenes['SeedSceneTwo'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
+            Scenes.scenes['SeedSceneTwo'].add(Scenes.scenes['SeedSceneTwo'].textMesh);
         });
         this.dialogueContinue = (event) => {
             if (event.key !== ' ') return;
-            // Scenes.scenes['SeedScene'].remove(Scenes.scenes['SeedScene'].textMesh);
+            // Scenes.scenes['SeedSceneTwo'].remove(Scenes.scenes['SeedSceneTwo'].textMesh);
         }
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);
@@ -597,4 +589,4 @@ function collision(object, direction, boxes, land) {
     }
 }
 
-export default SeedScene;
+export default SeedSceneTwo;
