@@ -8,7 +8,7 @@ import {
     TextureLoader,
     OrthographicCamera,
 } from 'three';
-import { BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
+import { BoxGeometry, MeshBasicMaterial, Mesh, Audio, AudioListener, AudioLoader } from 'three';
 //import { Flower, Land, Player } from 'objects';
 import { Land, Player, Grub, Text } from 'objects';
 import { BasicLights } from 'lights';
@@ -132,11 +132,36 @@ class SeedScene extends Scene {
         }
         // -------- BOXES END --------//
 
+        // -------- SOUND CODE PT 1 START ---------- //
+        // create an AudioListener and add it to the camera
+        const listener = new AudioListener();
+        this.camera.add(listener);
+
+        // create a global audio source
+        const sound = new Audio(listener);
+        // -------- SOUND CODE PT 1 END ---------- //
+
         // --- PLAYER MOVEMENT --- //
         //const playerSize = ;
         const speed = 1;
         window.addEventListener('keydown', this.onKeyDown, true);
         this.onKeyDown = (event) => {
+// ----- SOUND PT 2 ----- //
+    // load a sound and set it as the Audio object's buffer
+    // chrome requires user input to start audio so need to be on a key pressed or smth
+    const audioLoader = new AudioLoader();
+    // replace music
+    audioLoader.load(
+        'src/sounds/dungeon.mp3',
+        function (buffer) {
+            sound.setBuffer(buffer);
+            sound.setLoop(true);
+            sound.setVolume(0.1);
+            if (!sound.isPlaying) sound.play();
+        }
+    );
+    // ----- SOUND PT 2 ----- //
+
             let old_player_pos = player.position.clone();
             let old_player_box_pos = player_box.position.clone();
             let notBlocked = true
