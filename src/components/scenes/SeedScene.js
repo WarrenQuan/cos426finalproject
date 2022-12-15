@@ -137,9 +137,9 @@ class SeedScene extends Scene {
             // if (grub_box.boundingBox.max.y < player.position.y + speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
             //         player.position.y -= speed;
                 // up
-                if (!(grub_box.boundingBox.max.y < player.position.y + speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.x < grub_box.boundingBox.max.x && player.position.x > grub_box.boundingBox.min.x)){
-                player.position.y += speed;
-                player_box.position.y += speed;
+                if (!(player.position.y < grub_box.boundingBox.max.y && grub_box.boundingBox.max.y < player.position.y + speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.x < grub_box.boundingBox.max.x && player.position.x > grub_box.boundingBox.min.x)){ // if intersect, in middle,  will be above after, and not already above
+                    player.position.y += speed;
+                    player_box.position.y += speed;
                 }
                 if (player.rotation.z != 0) {
                     player.rotation.z = 0
@@ -154,7 +154,7 @@ class SeedScene extends Scene {
                 // down
                 // if (grub_box.boundingBox.min.y > player.position.y - speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
                 //     player.position.y += speed;
-                if (!(grub_box.boundingBox.min.y > player.position.y - speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.x < grub_box.boundingBox.max.x && player.position.x > grub_box.boundingBox.min.x)){
+                if (!(player.position.y > grub_box.boundingBox.min.y && grub_box.boundingBox.min.y > player.position.y - speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.x < grub_box.boundingBox.max.x && player.position.x > grub_box.boundingBox.min.x)){
                     player.position.y -= speed;
                     player_box.position.y -= speed;
                 }
@@ -167,7 +167,7 @@ class SeedScene extends Scene {
                 // left
                 // if (grub_box.boundingBox.min.x > player.position.x - speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
                 //     player.position.x += speed;
-                if (!(grub_box.boundingBox.min.x > player.position.x - speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.y < grub_box.boundingBox.max.y && player.position.y > grub_box.boundingBox.min.y)){
+                if (!(player.position.x > grub_box.boundingBox.min.x && grub_box.boundingBox.min.x > player.position.x - speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.y < grub_box.boundingBox.max.y && player.position.y > grub_box.boundingBox.min.y)){
                 player.position.x -= speed;
                 player_box.position.x -= speed;
                 }
@@ -180,7 +180,7 @@ class SeedScene extends Scene {
                 // right
                 console.log("PLAYER", player.position.y)
                     console.log("GRUB",grub_box.boundingBox.max.y )
-                if (!(grub_box.boundingBox.max.x < player.position.x + speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.y < grub_box.boundingBox.max.y && player.position.y > grub_box.boundingBox.min.y)){
+                if (!(player.position.x < grub_box.boundingBox.max.x && grub_box.boundingBox.max.x < player.position.x + speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.y < grub_box.boundingBox.max.y && player.position.y > grub_box.boundingBox.min.y)){
                     player.position.x += speed;
                     player_box.position.x += speed;
                 }
