@@ -145,7 +145,7 @@ class SeedScene extends Scene {
                 const box = new Mesh(
                     new BoxGeometry(1, 1, 1),
                     // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
-                    new MeshBasicMaterial({ map: boxTexture })
+                    new MeshBasicMaterial({name:counter, map: boxTexture })
                 );
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
@@ -153,6 +153,7 @@ class SeedScene extends Scene {
                                this.add(box);
                 this.addToUpdateList(box);
                 boxes.push(box);
+                console.log(box.name);
                 block.push(box);
                 counter++;
             }
