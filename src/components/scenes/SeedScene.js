@@ -109,33 +109,9 @@ class SeedScene extends Scene {
         //     'src/assets/letters/a.jpg'
         // );
         var letters = []
-        letters.push('src/assets/letters/a.jpg', 
-        'src/assets/letters/b.jpg', 
-        'src/assets/letters/c.jpg',
-        'src/assets/letters/d.jpg', 
-        'src/assets/letters/e.jpg',
-        'src/assets/letters/f.jpg', 
-        'src/assets/letters/g.jpg',
-        'src/assets/letters/h.jpg', 
-        'src/assets/letters/i.jpg',
-        'src/assets/letters/j.jpg', 
-        'src/assets/letters/k.jpg',
-        'src/assets/letters/l.jpg', 
-        'src/assets/letters/m.jpg',
-        'src/assets/letters/n.jpg', 
-        'src/assets/letters/o.jpg',
-        'src/assets/letters/p.jpg', 
-        'src/assets/letters/q.jpg',
-        'src/assets/letters/r.jpg', 
-        'src/assets/letters/s.jpg',
-        'src/assets/letters/t.jpg', 
-        'src/assets/letters/u.jpg',
-        'src/assets/letters/v.jpg', 
-        'src/assets/letters/w.jpg',
-        'src/assets/letters/x.jpg', 
-        'src/assets/letters/y.jpg',
-        'src/assets/letters/z.jpg'
-        )
+        for (var i = 0; i < 26; i++) 
+            letters.push(
+        'src/assets/letters/' + (i+10).toString(36) + '.jpg')
         var counter = 0;
         for (var i = -3; i < 4; i++) {
             for (var j = 1; j < 4; j++) {
