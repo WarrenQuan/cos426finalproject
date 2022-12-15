@@ -33,6 +33,7 @@ class SeedScene extends Scene {
 
         // -------- ADDING MESHES --------- //
         const land = new Land();
+        land.boundingBox = land.getBoundingBox()
         // const flower = new Flower(this);
         const lights = new BasicLights();
         const player = new Player(this);
@@ -108,33 +109,9 @@ class SeedScene extends Scene {
         //     'src/assets/letters/a.jpg'
         // );
         var letters = []
-        letters.push('src/assets/letters/a.jpg', 
-        'src/assets/letters/b.jpg', 
-        'src/assets/letters/c.jpg',
-        'src/assets/letters/d.jpg', 
-        'src/assets/letters/e.jpg',
-        'src/assets/letters/f.jpg', 
-        'src/assets/letters/g.jpg',
-        'src/assets/letters/h.jpg', 
-        'src/assets/letters/i.jpg',
-        'src/assets/letters/j.jpg', 
-        'src/assets/letters/k.jpg',
-        'src/assets/letters/l.jpg', 
-        'src/assets/letters/m.jpg',
-        'src/assets/letters/n.jpg', 
-        'src/assets/letters/o.jpg',
-        'src/assets/letters/p.jpg', 
-        'src/assets/letters/q.jpg',
-        'src/assets/letters/r.jpg', 
-        'src/assets/letters/s.jpg',
-        'src/assets/letters/t.jpg', 
-        'src/assets/letters/u.jpg',
-        'src/assets/letters/v.jpg', 
-        'src/assets/letters/w.jpg',
-        'src/assets/letters/x.jpg', 
-        'src/assets/letters/y.jpg',
-        'src/assets/letters/z.jpg'
-        )
+        for (var i = 0; i < 26; i++) 
+            letters.push(
+        'src/assets/letters/' + (i+10).toString(36) + '.jpg')
         var counter = 0;
         for (var i = -3; i < 4; i++) {
             for (var j = 1; j < 4; j++) {
@@ -187,6 +164,8 @@ class SeedScene extends Scene {
         // --- PLAYER MOVEMENT --- //
         //const playerSize = ;
         const speed = 1;
+
+
         this.onKeyDown = (event) => {
 // ----- SOUND PT 2 ----- //
     // load a sound and set it as the Audio object's buffer
@@ -210,18 +189,22 @@ class SeedScene extends Scene {
             if (event.keyCode == 38) {
                 // if (grub_box.boundingBox.max.y < player.position.y + speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
                 //         player.position.y -= speed;
-                // up
+                // up HERE
                 for(var i = 0; i < block.length; i++){
+                    if(land.boundingBox.max.y < player.position.y + speed){
+                        console.log("OUT OF BUNDS")
+                    }
                     if (
                         (
-                            player.position.y < block[i].boundingBox.max.y &&
+                           ( player.position.y < block[i].boundingBox.max.y &&
                             block[i].boundingBox.max.y <
                                 player.position.y + speed * 2 &&
                             player_box.boundingBox.intersectsBox(
                                 block[i].boundingBox
                             ) &&
                             player.position.x < block[i].boundingBox.max.x &&
-                            player.position.x > block[i].boundingBox.min.x
+                            player.position.x > block[i].boundingBox.min.x) || land.boundingBox.max.y < player.position.y + speed
+                            
                         )
                     )  notBlocked = false
                 }
@@ -237,23 +220,24 @@ class SeedScene extends Scene {
                     player.rotation.y = (180 * Math.PI) / 180.0;
                 }
                 // move box if collide
-                collision(player_box, 'up', boxes);
+                collision(player_box, 'up', boxes, land);
             }
             if (event.keyCode == 40) {
-                // down
+                // down HERE
                 // if (grub_box.boundingBox.min.y > player.position.y - speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
                 //     player.position.y += speed;
+                console.log(land.boundingBox.min.y > player_box.position.y - speed)
                 for(var i = 0; i < block.length; i++){
                     if (
                         (
-                            player.position.y > block[i].boundingBox.min.y &&
+                            (player.position.y > block[i].boundingBox.min.y &&
                             block[i].boundingBox.min.y >
                                 player.position.y - speed * 2 &&
                             player_box.boundingBox.intersectsBox(
                                 block[i].boundingBox
                             ) &&
                             player.position.x < block[i].boundingBox.max.x &&
-                            player.position.x > block[i].boundingBox.min.x
+                            player.position.x > block[i].boundingBox.min.x) || land.boundingBox.min.y > player_box.position.y - speed
                         )
                     )  notBlocked = false
                 }
@@ -264,23 +248,24 @@ class SeedScene extends Scene {
                 if (player.rotation.y != (0 * Math.PI) / 180.0) {
                     player.rotation.y = (0 * Math.PI) / 180.0;
                 }
-                collision(player_box, 'down', boxes);
+                collision(player_box, 'down', boxes, land);
             }
             if (event.keyCode == 37) {
-                // left
+                // left HERE
                 // if (grub_box.boundingBox.min.x > player.position.x - speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
                 //     player.position.x += speed;
+                console.log(land.boundingBox.min.x > player.position.x - speed)
                 for(var i = 0; i < block.length; i++){
                     if (
                         (
-                            player.position.x > block[i].boundingBox.min.x &&
+                            (player.position.x > block[i].boundingBox.min.x &&
                             block[i].boundingBox.min.x >
                                 player.position.x - speed * 2 &&
                             player_box.boundingBox.intersectsBox(
                                 block[i].boundingBox
                             ) &&
                             player.position.y < block[i].boundingBox.max.y &&
-                            player.position.y > block[i].boundingBox.min.y
+                            player.position.y > block[i].boundingBox.min.y) || land.boundingBox.min.x > player.position.x - speed
                         )
                     )  notBlocked = false
                 }
@@ -291,22 +276,24 @@ class SeedScene extends Scene {
                 if (player.rotation.y != (270 * Math.PI) / 180.0) {
                     player.rotation.y = (270 * Math.PI) / 180.0;
                 }
-                collision(player_box, 'left', boxes);
+                collision(player_box, 'left', boxes, land);
             }
             if (event.keyCode == 39) {
-                // right
+                // right HERE
                 console.log('PLAYER', player.position.y);
                 console.log('GRUB', grub_box.boundingBox.max.y);
+                console.log(land.boundingBox.max.x < player_box.position.x + speed)
+
                 for(var i = 0; i < block.length; i++){
                     if (
-                        player.position.x < block[i].boundingBox.max.x &&
+                        (player_box.position.x < block[i].boundingBox.max.x &&
                         block[i].boundingBox.max.x <
                             player.position.x + speed * 2 &&
                         player_box.boundingBox.intersectsBox(
                             block[i].boundingBox
                         ) &&
                         player.position.y < block[i].boundingBox.max.y &&
-                        player.position.y > block[i].boundingBox.min.y
+                        player.position.y > block[i].boundingBox.min.y) || land.boundingBox.max.x < player_box.position.x + speed
                     )
                       notBlocked = false
                 }
@@ -318,7 +305,7 @@ class SeedScene extends Scene {
                 if (player.rotation.y != (90 * Math.PI) / 180.0) {
                     player.rotation.y = (90 * Math.PI) / 180.0;
                 }
-                collision(player_box, 'right', boxes);
+                collision(player_box, 'right', boxes, land);
             }
 
             if (event.keyCode == 32 && !this.dialogueHappened) {
@@ -442,10 +429,9 @@ function hasIntersection(object, boxes) {
     return false;
 }
 
-function collision(object, direction, boxes) {
+function collision(object, direction, boxes, land) {
     var boxSpeed = 1;
     var savedBox;
-    var chainedBoxes = []
     for (let i = 0; i < boxes.length; i++) {
         if (object.boundingBox.intersectsBox(boxes[i].boundingBox)) {
             if (
@@ -457,12 +443,14 @@ function collision(object, direction, boxes) {
                     boxes[i].position.x >= object.position.x &&
                     boxes[i].position.x <= object.position.x
                 ) {
+                    
                     //objectFound = true;
                     // if outside boundary of the room/plane, set to room bounding
-                    // if (room.boundingBox.min.y > boxes[i].position.y - boxSpeed)
-                    //     boxes[i].position.y = room.boundingBox.min.y + 20;
+              
 
                     boxes[i].position.y -= boxSpeed;
+                    if (land.boundingBox.min.y > boxes[i].position.y - boxSpeed)
+                    boxes[i].position.y += boxSpeed;
                     savedBox = boxes[i];
                     // for (let j = 0; j < boxes.length; j++) {
                     //     if (object.boundingBox.intersectsBox(boxes[j].boundingBox) && boxes[j].position.y <= boxes[i].position.y) {
@@ -483,13 +471,16 @@ function collision(object, direction, boxes) {
                     boxes[i].position.x >= object.position.x &&
                     boxes[i].position.x <= object.position.x
                 ) {
-                    // if (room.boundingBox.max.y < boxes[i].position.y + boxSpeed)
-                    //     boxes[i].position.y = room.boundingBox.max.y - 20;
                     // while (hasIntersection(boxes[i], boxes)) {
                     //     //console.log('hello')
                     // collision(boxes[i], direction, boxes)
                     // }
                     boxes[i].position.y += boxSpeed;
+                    console.log("IN UP BOX")
+                    if (land.boundingBox.max.y < boxes[i].position.y + boxSpeed){
+                    boxes[i].position.y -= boxSpeed;
+                    console.log("IN UP BOX COOLIde")
+                    }
                     savedBox = boxes[i];
                 }
 
@@ -502,9 +493,10 @@ function collision(object, direction, boxes) {
                     boxes[i].position.y >= object.position.y &&
                     boxes[i].position.y <= object.position.y
                 ) {
-                    // if (room.boundingBox.min.x > boxes[i].position.x - boxSpeed)
-                    //     boxes[i].position.x = room.boundingBox.min.x + 20;
+                    
                     boxes[i].position.x -= boxSpeed;
+                    if (land.boundingBox.min.x > boxes[i].position.x - boxSpeed)
+                        boxes[i].position.x += boxSpeed;
                     savedBox = boxes[i];
                 }
    
@@ -517,10 +509,10 @@ function collision(object, direction, boxes) {
                     boxes[i].position.y >= object.position.y &&
                     boxes[i].position.y <= object.position.y
                 ) {
-                    // if (room.boundingBox.max.x < boxes[i].position.x + boxSpeed)
-
-                    // boxes[i].position.x = room.boundingBox.max.x - 20;
+                  
                     boxes[i].position.x += boxSpeed;
+                    if (land.boundingBox.max.x < boxes[i].position.x + boxSpeed)
+                    boxes[i].position.x -= boxSpeed;
                     savedBox = boxes[i];
                 }
 
@@ -528,6 +520,7 @@ function collision(object, direction, boxes) {
         }
     }
 
+    if(savedBox !== undefined){
     for (var i = 0; i < boxes.length; i++) {
         if (savedBox.boundingBox.intersectsBox(boxes[i].boundingBox) &&
             savedBox !== boxes[i]
@@ -583,6 +576,7 @@ function collision(object, direction, boxes) {
                 savedBox.position.x -= boxSpeed;
             }
         }
+    }
     }
 }
 
