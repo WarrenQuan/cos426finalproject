@@ -40,10 +40,10 @@ class SeedScene extends Scene {
 
         // camera
         this.camera = new OrthographicCamera(
-            window.innerWidth / -140,
-            window.innerWidth / 140,
-            window.innerHeight / 140,
-            window.innerHeight / -140,
+            window.innerWidth / -110,
+            window.innerWidth / 110,
+            window.innerHeight / 110,
+            window.innerHeight / -110,
             0,
             1000
         );
@@ -153,10 +153,25 @@ class SeedScene extends Scene {
                                this.add(box);
                 this.addToUpdateList(box);
                 boxes.push(box);
-                console.log(box.name);
                 block.push(box);
                 counter++;
             }
+        }
+
+        var holes = []
+        for (let index = 0; index < 5; index++) {
+            const box = new Mesh(
+                new BoxGeometry(1, 1, 1),
+                // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+                new MeshBasicMaterial({name:index,  color: 0x00ff00, wireframe: true }));
+                box.geometry.computeBoundingBox();
+                box.boundingBox = box.geometry.boundingBox.clone();
+                box.position.set(2 * (index-2), -3, -1 / 32);
+                               this.add(box);
+                this.addToUpdateList(box);
+                //boxes.push(box);
+                holes.push(box);
+            
         }
         // -------- BOXES END --------//
 
@@ -322,6 +337,9 @@ class SeedScene extends Scene {
                 this.camera.zoom += 0.1;
                 this.windowResizeHandler();
             }
+            if (checkWin(boxes, holes)) {
+                console.log('yay')
+            }
         }
         // ----------------------- //
         // -------- ADDING OBJECTS TO SCENE --------- //
@@ -398,6 +416,19 @@ class SeedScene extends Scene {
         window.addEventListener('keydown', this.dialogueContinue, false);
         this.dialogueHappened = true;
     }
+}
+function checkWin(boxes, holes) {
+    // box: 5 , 17 , 8 , 18 , 19
+    // holes: 0 , 1 , 2 , 3 , 4
+    console.log(boxes[5].name)
+    if(boxes[5].boundingBox.intersectsBox(holes[0]) ) 
+   // boxes[17].boundingBox.intersectsBox(holes[1]) &&
+   // boxes[8].boundingBox.intersectsBox(holes[2]) &&
+   // boxes[18].boundingBox.intersectsBox(holes[3]) &&
+   // boxes[19].boundingBox.intersectsBox(holes[4])) {
+        return true
+    else
+    return false
 }
 function hasIntersection(object, boxes) {
     for (let i = 0; i < boxes.length; i++) {
