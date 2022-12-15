@@ -31,17 +31,20 @@ class Intro extends Scene {
         // -------- ADDING MESHES --------- //
         const lights = new BasicLights();
         const grub = new Grub(this);
-        grub.position.set(0,0,0.9);
+        grub.position.set(0,0,0);
 
         // camera
         this.camera = new PerspectiveCamera(
 
         );
-        // Set the initial position and orientation of the camera
-        this.camera.position.set(0, 0, 5); // angled to like legend of zelda
-        this.camera.zoom = 1;
-        // can use lookAt to follow player position too
-        this.camera.lookAt(grub.position.x, grub.position.y, grub.position.z);
+        // // Set the initial position and orientation of the camera
+        // this.camera.position.set(0.7, 0, 3); // angled to like legend of zelda
+        // this.camera.zoom = 1;
+        // // can use lookAt to follow player position too
+        // this.camera.lookAt(0.7, 0, 3);
+
+        this.camera.add(grub);
+        grub.position.set(-1, -0.5,-1.5);
 
         this.windowResizeHandler = () => {
             const { innerHeight, innerWidth } = window;
@@ -135,27 +138,27 @@ class Intro extends Scene {
 
         var grub_position = grub.position.clone();
         // Add cube to back
-        const boxGeometry = new BoxGeometry(window.innerWidth / -500, window.innerHeight / -6000, 1);
-        // const boxMaterial = new MeshBasicMaterial({color: 0x9b673c});
+        // const boxGeometry = new BoxGeometry(window.innerWidth / -500, window.innerHeight / -6000, 0);
+        // // const boxMaterial = new MeshBasicMaterial({color: 0x9b673c});
         
-        const boxMaterial = new MeshBasicMaterial({color: 0xeee9d4});
-        var cube = new Mesh(boxGeometry, boxMaterial);
-        cube.position.set(grub_position.x + 1, grub_position.y + 0.005, 0.1);
-        console.log(grub_position.z)
-        console.log(grub_position.x)
-        console.log(grub_position.y)
-        this.add(cube);
+        // const boxMaterial = new MeshBasicMaterial({color: 0xeee9d4});
+        // var cube = new Mesh(boxGeometry, boxMaterial);
+        // cube.position.set(grub_position.x, grub_position.y, grub_position.z);
+        // console.log(grub_position.z)
+        // console.log(grub_position.x)
+        // console.log(grub_position.y)
+        // this.add(cube);
 
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry("you're finally awake", {
+            const textGeometry = new TextGeometry("you're finally awake  eeeee", {
                 font: font,
                 size: 0.08,
                 height: 0,
             });
-            Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x252b39}));
-            Scenes.scenes['Intro'].textMesh.position.set(window.innerWidth / 3870, window.innerWidth / -26125, grub_position.z + 1);
+            Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+            Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
             Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);       
         });
         console.log("done")
