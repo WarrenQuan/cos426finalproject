@@ -140,11 +140,15 @@ class SeedScene extends Scene {
         }
 
         var holes = []
+        const boxTexture = new TextureLoader().load(
+            'src/assets/glass.png'
+        );
         for (let index = 0; index < 5; index++) {
             const box = new Mesh(
                 new BoxGeometry(0.9, 0.9, 1),
                 // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
-                new MeshBasicMaterial({color: 0x00ff00, wireframe: true }));
+                new MeshBasicMaterial({color: 0xffffff, map: boxTexture}));
+
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
                 box.position.set(2 * (index-2), -3, -1 / 32);
