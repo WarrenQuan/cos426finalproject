@@ -188,8 +188,6 @@ class SeedScene extends Scene {
     );
     // ----- SOUND PT 2 ----- //
 
-            let old_player_pos = player.position.clone();
-            let old_player_box_pos = player_box.position.clone();
             let notBlocked = true
             if (event.keyCode == 38) {
                 // if (grub_box.boundingBox.max.y < player.position.y + speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
@@ -329,6 +327,11 @@ class SeedScene extends Scene {
                 this.camera.zoom += 0.1;
                 this.windowResizeHandler();
             }
+            //      // Zoom in
+            //      if (event.code === 'KeyX' || event.key === 'x') {
+            //         this.camera.zoom += 0.1;
+            //         this.windowResizeHandler();
+            //     }
             if (checkWin(boxes, holes)) {
                 console.log('yay')
             }
@@ -391,9 +394,9 @@ class SeedScene extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry('text', {
+            const textGeometry = new TextGeometry('Where do you get late meal?', {
                 font: font,
-                size: 0.5,
+                size: 0.3,
                 height: 0,
             });
             Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x252b39}));
