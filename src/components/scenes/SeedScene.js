@@ -73,7 +73,7 @@ class SeedScene extends Scene {
         var player_box = new Mesh(playerGeometry, playerMaterial);
         player_box.geometry.computeBoundingBox();
         player_box.boundingBox = player_box.geometry.boundingBox.clone();
-        player_box.position.set(1, 0, -1 / 32);
+        player_box.position.set(0, 0, -1 / 32);
         this.addToUpdateList(player_box);
 
         //----------PLAYER BOUNDING BOX END-----------//
@@ -399,7 +399,7 @@ class SeedScene extends Scene {
                 size: 0.3,
                 height: 0,
             });
-            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x252b39}));
+            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
             Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
             Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
         });
