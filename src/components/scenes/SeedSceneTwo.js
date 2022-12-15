@@ -343,7 +343,7 @@ class SeedSceneTwo extends Scene {
             //         this.windowResizeHandler();
             //     }
             if (checkWin(boxes, holes)) {
-                Scenes.switchScene('TransitionTwo');
+                Scenes.switchScene('SeedSceneThree');
             }
         }
         // ----------------------- //

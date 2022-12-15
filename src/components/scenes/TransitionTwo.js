@@ -141,28 +141,63 @@ class TransitionTwo extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry("yay.", {
+            const textGeometry = new TextGeometry("yay", {
                 font: font,
                 size: 0.08,
                 height: 0,
             });
             Scenes.scenes['TransitionTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
             Scenes.scenes['TransitionTwo'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-            Scenes.scenes['TransitionTwo'].add(Scenes.scenes['TransitionTwo'].textMesh);
-            count++       
+            Scenes.scenes['TransitionTwo'].add(Scenes.scenes['TransitionTwo'].textMesh);    
         });
+        
         this.dialogueContinue = (event) => {
-            if (event.key !== ' ') return;
-            console.log(count);
-            if (count >= 1){
-                Scenes.scenes['TransitionTwo'].remove(Scenes.scenes['TransitionTwo'].textMesh);  
-        window.removeEventListener('keydown', this.onKeyDown, false);
-        window.addEventListener('keydown', this.dialogueContinue, false);
-        this.dialogueHappened = true;
-        Scenes.switchScene('SeedSceneThree');
+            //if (event.key !== ' ') return;
+            if (count >= 4){
+                this.remove(Scenes.scenes['TransitionTwo'].textMesh);  
+                window.addEventListener('keydown', this.onKeyDown, false);
+                window.removeEventListener('keydown', this.dialogueContinue, false); 
+                Scenes.switchScene('SeedSceneThree');
             }
+            else if (count === 1){
+                Scenes.scenes['TransitionTwo'].remove(Scenes.scenes['TransitionTwo'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const textGeometry = new TextGeometry( "you did it ig",
+                            {
+                                font: font,
+                                size: 0.06,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['TransitionTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['TransitionTwo'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['TransitionTwo'].add(Scenes.scenes['TransitionTwo'].textMesh);
+                    }
+                );  
+            }
+            else if (count === 3){
+                Scenes.scenes['TransitionTwo'].remove(Scenes.scenes['TransitionTwo'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const textGeometry = new TextGeometry( "on to the next",
+                            {
+                                font: font,
+                                size: 0.05,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['TransitionTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['TransitionTwo'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['TransitionTwo'].add(Scenes.scenes['TransitionTwo'].textMesh);
+                    }
+                );  
+            }
+            count++;
         }
-        Scenes.scenes['TransitionTwo'].remove(Scenes.scenes['TransitionTwo'].textMesh);  
+        
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);
         this.dialogueHappened = true;

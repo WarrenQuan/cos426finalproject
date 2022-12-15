@@ -344,7 +344,7 @@ class SeedSceneThree extends Scene {
             //     }
             if (checkWin(boxes, holes)) {
                 console.log('yay')
-                //Scenes.switchScene();
+                Scenes.switchScene('End');
             }
         }
         // ----------------------- //

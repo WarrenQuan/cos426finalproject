@@ -39,7 +39,7 @@ class TransitionOne extends Scene {
         );
         // // Set the initial position and orientation of the camera
         // this.camera.position.set(0.7, 0, 3); // angled to like legend of zelda
-        // this.camera.zoom = 1;
+        // this.camera.zoom = 1;s
         // // can use lookAt to follow player position too
         // this.camera.lookAt(0.7, 0, 3);
 
@@ -141,28 +141,63 @@ class TransitionOne extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry("yay.", {
+            const textGeometry = new TextGeometry("yay", {
                 font: font,
                 size: 0.08,
                 height: 0,
             });
             Scenes.scenes['TransitionOne'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
             Scenes.scenes['TransitionOne'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-            Scenes.scenes['TransitionOne'].add(Scenes.scenes['TransitionOne'].textMesh);
-            count++       
+            Scenes.scenes['TransitionOne'].add(Scenes.scenes['TransitionOne'].textMesh);    
         });
+        
         this.dialogueContinue = (event) => {
-            if (event.key !== ' ') return;
-            console.log(count);
-            if (count >= 1){
-                Scenes.scenes['TransitionOne'].remove(Scenes.scenes['TransitionOne'].textMesh);  
-        window.removeEventListener('keydown', this.onKeyDown, false);
-        window.addEventListener('keydown', this.dialogueContinue, false);
-        this.dialogueHappened = true;
-        Scenes.switchScene('SeedSceneTwo');
+            //if (event.key !== ' ') return;
+            if (count >= 3){
+                this.remove(Scenes.scenes['TransitionOne'].textMesh);  
+                window.addEventListener('keydown', this.onKeyDown, false);
+                window.removeEventListener('keydown', this.dialogueContinue, false); 
+                Scenes.switchScene('SeedSceneTwo');
             }
+            else if (count === 1){
+                Scenes.scenes['TransitionOne'].remove(Scenes.scenes['TransitionOne'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const textGeometry = new TextGeometry( "you did it ig",
+                            {
+                                font: font,
+                                size: 0.06,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['TransitionOne'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['TransitionOne'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['TransitionOne'].add(Scenes.scenes['TransitionOne'].textMesh);
+                    }
+                );  
+            }
+            else if (count === 2){
+                Scenes.scenes['TransitionOne'].remove(Scenes.scenes['TransitionOne'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const textGeometry = new TextGeometry( "on to the next",
+                            {
+                                font: font,
+                                size: 0.05,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['TransitionOne'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['TransitionOne'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['TransitionOne'].add(Scenes.scenes['TransitionOne'].textMesh);
+                    }
+                );  
+            }
+            count++;
         }
-        Scenes.scenes['TransitionOne'].remove(Scenes.scenes['TransitionOne'].textMesh);  
+        
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);
         this.dialogueHappened = true;
