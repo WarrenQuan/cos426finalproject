@@ -21,8 +21,8 @@ class Scenes {
         this.scenes['SeedScene'] = new SeedScene();
         this.scenes['SeedSceneTwo'] = new SeedSceneTwo();
         this.scenes['SeedSceneThree'] = new SeedSceneThree();
-        this.scenes['Transition'] = new Transition();
-        this.scenes['TransitionTwo'] = new Transition();
+        this.scenes['TransitionOne'] = new TransitionOne();
+        this.scenes['TransitionTwo'] = new TransitionTwo();
 
         this.scenes['End'] = new End();
 
