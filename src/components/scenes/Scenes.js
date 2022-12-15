@@ -1,6 +1,7 @@
 import { WebGLRenderer} from 'three';
 import SeedScene from './SeedScene';
-import SeedSceneTwo from './SeedSceneThree';
+import SeedSceneTwo from './SeedSceneTwo';
+import SeedSceneThree from './SeedSceneThree';
 import Intro from './Intro';
 class Scenes {
     constructor(){
@@ -18,7 +19,7 @@ class Scenes {
         this.scenes['SeedSceneTwo'] = new SeedSceneTwo();
         this.scenes['SeedSceneThree'] = new SeedSceneThree();
 
-        this.currentScene = this.scenes['SeedSceneTwo'];
+        this.currentScene = this.scenes['Intro'];
         this.currentScene.addEvents();
     }
 

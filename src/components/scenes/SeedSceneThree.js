@@ -424,14 +424,14 @@ class SeedSceneThree extends Scene {
 }
 // WINNING IF IT IS PUT WITH LETTERS FRIST
 function checkWin(boxes, holes) {
-    // box: 5 , 17 , 8 , 18 , 19
+    // box: DINKY
     // holes: 0 , 1 , 2 , 3 , 4
 
-    if(boxes[5].boundingBox.intersectsBox(holes[0].boundingBox) &&
-   boxes[17].boundingBox.intersectsBox(holes[1].boundingBox) &&
-   boxes[8].boundingBox.intersectsBox(holes[2].boundingBox) &&
-   boxes[18].boundingBox.intersectsBox(holes[3].boundingBox) &&
-   boxes[19].boundingBox.intersectsBox(holes[4].boundingBox))
+    if(boxes[3].boundingBox.intersectsBox(holes[0].boundingBox) &&
+   boxes[8].boundingBox.intersectsBox(holes[1].boundingBox) &&
+   boxes[13].boundingBox.intersectsBox(holes[2].boundingBox) &&
+   boxes[10].boundingBox.intersectsBox(holes[3].boundingBox) &&
+   boxes[24].boundingBox.intersectsBox(holes[4].boundingBox))
         return true
     else
         return false

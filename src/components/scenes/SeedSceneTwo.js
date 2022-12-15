@@ -17,7 +17,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { PixelFont } from '../objects/Fonts';
 import { Scenes } from '.';
 
-class SeedScene extends Scene {
+class SeedSceneTwo extends Scene {
     constructor() {
         // Call parent Scene() constructor
         super();
@@ -343,7 +343,7 @@ class SeedScene extends Scene {
             //         this.windowResizeHandler();
             //     }
             if (checkWin(boxes, holes)) {
-                console.log('yay')
+                Scenes.switchScene('SeedSceneThree');
             }
         }
         // ----------------------- //
@@ -409,13 +409,13 @@ class SeedScene extends Scene {
                 size: 0.3,
                 height: 0,
             });
-            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
-            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
-            Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
+            Scenes.scenes['SeedSceneTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
+            Scenes.scenes['SeedSceneTwo'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
+            Scenes.scenes['SeedSceneTwo'].add(Scenes.scenes['SeedSceneTwo'].textMesh);
         });
         this.dialogueContinue = (event) => {
             if (event.key !== ' ') return;
-            // Scenes.scenes['SeedScene'].remove(Scenes.scenes['SeedScene'].textMesh);
+            // Scenes.scenes['SeedSceneTwo'].remove(Scenes.scenes['SeedSceneTwo'].textMesh);
         }
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);
@@ -600,4 +600,4 @@ function collision(object, direction, boxes, land) {
     }
 }
 
-export default SeedScene;
+export default SeedSceneTwo;

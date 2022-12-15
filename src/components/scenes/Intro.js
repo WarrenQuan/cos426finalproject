@@ -155,6 +155,7 @@ class Intro extends Scene {
             if (event.key !== ' ') return;
             console.log(count);
             if (count >= 6){
+                console.log(Scenes.scenes['Intro'].textMesh)
                 this.remove(Scenes.scenes['Intro'].textMesh);  
                 window.addEventListener('keydown', this.onKeyDown, false);
                 window.removeEventListener('keydown', this.dialogueContinue, false); 
