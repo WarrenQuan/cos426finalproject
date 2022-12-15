@@ -73,7 +73,7 @@ class SeedSceneTwo extends Scene {
         var player_box = new Mesh(playerGeometry, playerMaterial);
         player_box.geometry.computeBoundingBox();
         player_box.boundingBox = player_box.geometry.boundingBox.clone();
-        player_box.position.set(1, 0, -1 / 32);
+        player_box.position.set(0, 0, -1 / 32);
         this.addToUpdateList(player_box);
 
         //----------PLAYER BOUNDING BOX END-----------//
