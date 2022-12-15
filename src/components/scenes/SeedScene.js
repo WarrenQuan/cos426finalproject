@@ -338,7 +338,7 @@ class SeedScene extends Scene {
         const boxGeometry = new BoxGeometry(window.innerWidth / -90, window.innerHeight / -1000, 1);
         // const boxMaterial = new MeshBasicMaterial({color: 0x9b673c});
         
-        const boxMaterial = new MeshBasicMaterial({color: 0xffffff});
+        const boxMaterial = new MeshBasicMaterial({color: 0xeee9d4});
         var cube = new Mesh(boxGeometry, boxMaterial);
         cube.position.set(window.innerWidth / -700, window.innerHeight / -150, player_pos.z);
         console.log(cube.position)
@@ -352,8 +352,8 @@ class SeedScene extends Scene {
                 size: 0.5,
                 height: 0,
             });
-            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -140, window.innerHeight / -140, player_pos.z);
+            Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x252b39}));
+            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
             Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
         });
         this.dialogueContinue = (event) => {
