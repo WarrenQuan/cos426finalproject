@@ -135,24 +135,13 @@ class Intro extends Scene {
     }
 
     dialogue(grub){
-
         var grub_position = grub.position.clone();
-        // Add cube to back
-        // const boxGeometry = new BoxGeometry(window.innerWidth / -500, window.innerHeight / -6000, 0);
-        // // const boxMaterial = new MeshBasicMaterial({color: 0x9b673c});
-        
-        // const boxMaterial = new MeshBasicMaterial({color: 0xeee9d4});
-        // var cube = new Mesh(boxGeometry, boxMaterial);
-        // cube.position.set(grub_position.x, grub_position.y, grub_position.z);
-        // console.log(grub_position.z)
-        // console.log(grub_position.x)
-        // console.log(grub_position.y)
-        // this.add(cube);
+        var count = 0;
 
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry("you're finally awake  eeeee", {
+            const textGeometry = new TextGeometry("you're finally awake", {
                 font: font,
                 size: 0.08,
                 height: 0,
@@ -161,10 +150,128 @@ class Intro extends Scene {
             Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
             Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);       
         });
-        console.log("done")
+
         this.dialogueContinue = (event) => {
             if (event.key !== ' ') return;
+            console.log(count);
+            if (count >= 6){
+                this.remove(Scenes.scenes['Intro'].textMesh);  
+                window.addEventListener('keydown', this.onKeyDown, false);
+                window.removeEventListener('keydown', this.dialogueContinue, false); 
+                Scenes.switchScene('SeedScene');
+            }
+            else if (count === 0){
+                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
+                console.log(Scenes.scenes['Intro']);
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const geometry = new TextGeometry( "You are probably wondering why you are here",
+                            {
+                                font: font,
+                                size: 0.08,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['Intro'].textMesh = new Mesh(geometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
+                    }
+                );  
+            }
+            else if (count === 1){
+                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const geometry = new TextGeometry( "As you know, Princeton represents the height of intellectualism.",
+                            {
+                                font: font,
+                                size: 0.08,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['Intro'].textMesh = new Mesh(geometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
+                    }
+                );  
+            }
+            else if (count === 2){
+                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const geometry = new TextGeometry( "We have no place for those falling into academic mediocracy...",
+                            {
+                                font: font,
+                                size: 0.08,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['Intro'].textMesh = new Mesh(geometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
+                    }
+                );  
+            }
+            else if (count === 3){
+                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const geometry = new TextGeometry( "Since you got a low low score of 95 on your last COS 426 assignment,",
+                            {
+                                font: font,
+                                size: 0.08,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['Intro'].textMesh = new Mesh(geometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
+                    }
+                );  
+            }
+            else if (count === 4){
+                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const geometry = new TextGeometry( "you must now prove that you are still worthy of being a student here.",
+                            {
+                                font: font,
+                                size: 0.08,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['Intro'].textMesh = new Mesh(geometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
+                    }
+                );  
+            }
+            else if (count === 5){
+                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
+                loader.load(
+                    PixelFont,
+                    function(font) {
+                        const geometry = new TextGeometry( "Talk to me again when you are ready to answer my riddles...",
+                            {
+                                font: font,
+                                size: 0.08,
+                                height: 0
+                            }
+                        );
+                        Scenes.scenes['Intro'].textMesh = new Mesh(geometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
+                    }
+                );  
+            }
+            count++;
         }
+        Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);
         this.dialogueHappened = true;
