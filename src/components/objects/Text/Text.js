@@ -1,37 +1,44 @@
-import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
+import { Group, TextGeometry, FontLoader, Font } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './untitled.gltf';
 
-class Player extends Group {
+class Text extends Group {
     constructor(parent) {
         // Call parent Group() constructor
         super();
 
-    //    Init state
-        this.state = {
-            gui: parent.state.gui,
-            bob: true,
-            spin: this.spin.bind(this),
-            twirl: 0,
-        };
+        // ---- TEXT --- //
+        const loader = new FontLoader();
 
-        // Load object
-        const loader = new GLTFLoader();
+        loader.load('fonts/helvetiker_bold.typeface.json', function (font) {
 
-        this.name = 'player';
-        loader.load(MODEL, (gltf) => {
-            this.add(gltf.scene);
-            gltf.scene.position.y = -.5
-            console.log(gltf.scene.position)
+            const textGeometry = new TextGeometry('Hello three.js!', {
+                font: "helvetiker",
+                size: 80,
+                height: 5,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 10,
+                bevelSize: 8,
+                bevelOffset: 0,
+                bevelSegments: 5
+
+            });
+            var textMaterial = new MeshBasicMaterial({
+                //--- transparent box code ---//
+                // transparent: true,
+                // opacity: 0,
+
+                //--- wire box code ---//
+                color: 0xff0000,
+            });
+            var mesh = new THREE.Mesh(textGeometry, textMaterial);
+            mesh.position.set(0, 0, -1 / 32);
+            this.add(mesh)
+            console.log("ah: ", mesh)
         });
 
-        // Add self to parent's update list
-       parent.addToUpdateList(this);
-
-        //Populate GUI
-       this.state.gui.add(this.state, 'bob');
-        this.state.gui.add(this.state, 'spin');
     }
 
     spin() {
@@ -71,4 +78,4 @@ class Player extends Group {
     }
 }
 
-export default Player;
+export default Text;

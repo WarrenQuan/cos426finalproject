@@ -8,10 +8,10 @@ class Land extends Group {
         this.name = 'land'
         const roomGeometry = new PlaneGeometry(
             window.innerWidth/50 - 2,
-            window.innerHeight/50 - 2
+            window.innerWidth/50 - 2
         );
         const groundTexture = new TextureLoader().load(
-            'src/components/objects/Land/dungeontexture.jpeg'
+            'src/components/objects/Land/con.jpeg'
         );
 
         

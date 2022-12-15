@@ -25,7 +25,7 @@
 //     AudioListener,
 //     AudioLoader,
 // } from 'three';
-import { WebGLRenderer, PerspectiveCamera, Vector3, OrthographicCamera } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Vector3, OrthographicCamera, TextGeometry, FontLoader } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
 
@@ -83,6 +83,7 @@ const windowResizeHandler = () => {
     renderer.setSize(innerWidth, innerHeight);
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
+    
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);

@@ -23,6 +23,7 @@ class Grub extends Group {
         loader.load(MODEL, (gltf) => {
             console.log(gltf.scene.position)
             gltf.scene.position.x = 1
+            gltf.scene.position.y = -.5
             this.add(gltf.scene);
            // this.add(box)
         });
