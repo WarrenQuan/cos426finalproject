@@ -15,7 +15,7 @@ class Text extends Group {
 
         loader.load(PixelFont, function (font) {
 
-            const textGeometry = new TextGeometry('ASDFADSFADSFASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASD!', {
+            const textGeometry = new TextGeometry('Hello Hoe!', {
                 font: font,
                 size: 0.5,
                 height: 0,

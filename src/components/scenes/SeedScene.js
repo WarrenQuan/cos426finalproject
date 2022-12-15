@@ -51,27 +51,6 @@ class SeedScene extends Scene {
             
         };
 
-        // const loader = new FontLoader();
-        // let text;
-        // loader.load(PixelFont, function (font) {
-        //     const textGeometry = new TextGeometry('ASDFADSFADSFASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASD!', {
-        //         font: font,
-        //         size: 0.5,
-        //         height: 0,
-        //     });
-        //     const mesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-        //     mesh.position.set(0, 0, 2);
-        //     text = mesh
-        // });
-        // console.log(text.position)
-
-        // console.log("TEXT", text)
-
-        //var objects = []
-        //objects.push(grub)
-       // console.log(objects)
-        // const grub_box = new GrubBox();
-        // const player_box = new PlayerBox();
 
 
         // ---- PLAYER BOUNDING BOX ---//
@@ -158,8 +137,10 @@ class SeedScene extends Scene {
             // if (grub_box.boundingBox.max.y < player.position.y + speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
             //         player.position.y -= speed;
                 // up
+                if (!(grub_box.boundingBox.max.y < player.position.y + speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.x < grub_box.boundingBox.max.x && player.position.x > grub_box.boundingBox.min.x)){
                 player.position.y += speed;
                 player_box.position.y += speed;
+                }
                 if (player.rotation.z != 0) {
                     player.rotation.z = 0
                 }
@@ -173,9 +154,10 @@ class SeedScene extends Scene {
                 // down
                 // if (grub_box.boundingBox.min.y > player.position.y - speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
                 //     player.position.y += speed;
-             
-                player.position.y -= speed;
-                player_box.position.y -= speed;
+                if (!(grub_box.boundingBox.min.y > player.position.y - speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.x < grub_box.boundingBox.max.x && player.position.x > grub_box.boundingBox.min.x)){
+                    player.position.y -= speed;
+                    player_box.position.y -= speed;
+                }
                 if (player.rotation.y != 0 * Math.PI / 180.0) {
                     player.rotation.y = 0 * Math.PI / 180.0
                 }
@@ -185,8 +167,10 @@ class SeedScene extends Scene {
                 // left
                 // if (grub_box.boundingBox.min.x > player.position.x - speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
                 //     player.position.x += speed;
+                if (!(grub_box.boundingBox.min.x > player.position.x - speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.y < grub_box.boundingBox.max.y && player.position.y > grub_box.boundingBox.min.y)){
                 player.position.x -= speed;
                 player_box.position.x -= speed;
+                }
                 collision(player_box, 'left', boxes);
                 if (player.rotation.y != 270 * Math.PI / 180.0) {
                     player.rotation.y = 270 * Math.PI / 180.0;
@@ -194,11 +178,14 @@ class SeedScene extends Scene {
             }
             if (event.keyCode == 39) {
                 // right
-                // if (grub_box.boundingBox.max.x < player.position.x + speed && player_box.boundingBox.intersectsBox(grub_box.boundingBox))
-                //     player.position.x -= speed;
-
+                console.log("PLAYER", player.position.y)
+                    console.log("GRUB",grub_box.boundingBox.max.y )
+                if (!(grub_box.boundingBox.max.x < player.position.x + speed * 2 && player_box.boundingBox.intersectsBox(grub_box.boundingBox) && player.position.y < grub_box.boundingBox.max.y && player.position.y > grub_box.boundingBox.min.y)){
                     player.position.x += speed;
                     player_box.position.x += speed;
+                }
+                
+                
                 collision(player_box, 'right', boxes);
                 if (player.rotation.y != 90 * Math.PI / 180.0) {
                     player.rotation.y = 90 * Math.PI / 180.0;
@@ -281,7 +268,7 @@ class SeedScene extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry('ASDFADSFADSFASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASD!', {
+            const textGeometry = new TextGeometry('Hello Hoe!', {
                 font: font,
                 size: 0.5,
                 height: 0,
