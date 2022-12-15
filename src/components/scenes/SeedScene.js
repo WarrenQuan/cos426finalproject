@@ -37,6 +37,8 @@ class SeedScene extends Scene {
         const lights = new BasicLights();
         const player = new Player(this);
         const grub = new Grub(this);
+        grub.position.x = 5
+        grub.position.y = -5
 
         // camera
         this.camera = new OrthographicCamera(
@@ -92,6 +94,8 @@ class SeedScene extends Scene {
         grub_box.geometry.computeBoundingBox();
         grub_box.boundingBox = grub_box.geometry.boundingBox.clone();
         grub_box.position.set(1, 0, -1 / 32);
+        grub_box.position.x += 5
+        grub_box.position.y -= 5
         this.addToUpdateList(grub_box);
         //----------GRUB BOUNDING BOX END -----------//
         var block = []
@@ -145,13 +149,13 @@ class SeedScene extends Scene {
         );
         for (let index = 0; index < 5; index++) {
             const box = new Mesh(
-                new BoxGeometry(0.9, 0.9, 1),
+                new BoxGeometry(0.9, 0.9, 0.9),
                 // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
                 new MeshBasicMaterial({color: 0xffffff, map: boxTexture}));
 
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
-                box.position.set(2 * (index-2), -3, -1 / 32);
+                box.position.set(2 * (index-2), -2, -1 / 32);
                 this.add(box);
                 this.addToUpdateList(box);
                 //boxes.push(box);
