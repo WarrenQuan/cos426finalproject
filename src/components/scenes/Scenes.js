@@ -1,4 +1,5 @@
 import { WebGLRenderer} from 'three';
+import TitleScene from './TitleScene';
 import SeedScene from './SeedScene';
 import SeedSceneTwo from './SeedSceneTwo';
 import Intro from './Intro';
@@ -16,8 +17,10 @@ class Scenes {
         this.scenes['Intro'] = new Intro();
         this.scenes['SeedScene'] = new SeedScene();
         this.scenes['SeedSceneTwo'] = new SeedSceneTwo();
+        this.scenes['TitleScene'] = new TitleScene();
 
-        this.currentScene = this.scenes['SeedScene'];
+
+        this.currentScene = this.scenes['TitleScene'];
         this.currentScene.addEvents();
         
     }
