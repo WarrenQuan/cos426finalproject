@@ -21,6 +21,7 @@ class SeedScene extends Scene {
 
         // Set background to a nice color
         this.background = new Color(0x7ec0ee);
+        this.dialogueHappened = false;
 
         // -------- ADDING MESHES --------- // 
         const land = new Land();
@@ -51,35 +52,9 @@ class SeedScene extends Scene {
             
         };
 
-        // const loader = new FontLoader();
-        // let text;
-        // loader.load(PixelFont, function (font) {
-        //     const textGeometry = new TextGeometry('ASDFADSFADSFASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASD!', {
-        //         font: font,
-        //         size: 0.5,
-        //         height: 0,
-        //     });
-        //     const mesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-        //     mesh.position.set(0, 0, 2);
-        //     text = mesh
-        // });
-        // console.log(text.position)
-
-        // console.log("TEXT", text)
-
-        //var objects = []
-        //objects.push(grub)
-       // console.log(objects)
-        // const grub_box = new GrubBox();
-        // const player_box = new PlayerBox();
-
-
         // ---- PLAYER BOUNDING BOX ---//
         var playerGeometry = new BoxGeometry(1, 1, 1);
         var playerMaterial = new MeshBasicMaterial({
-            //--- transparent box code ---//
-            // transparent: true,
-            // opacity: 0,
 
             //--- wire box code ---//
             color: 0xff0000,
@@ -97,9 +72,7 @@ class SeedScene extends Scene {
         // ---- GRUB BOUNDING BOX ---//
         var playerGeometry = new BoxGeometry(1, 1, 1);
         var playerMaterial = new MeshBasicMaterial({
-            //--- transparent box code ---//
-            // transparent: true,
-            // opacity: 0,
+
 
             //--- wire box code ---//
             color: 0xff0000,
@@ -113,18 +86,12 @@ class SeedScene extends Scene {
         //----------GRUB BOUNDING BOX END -----------//
 
         var boxes = [];
-       // boxes.push(grub_box);
-
-        // Load object
-        //const loader = new GLTFLoader();
-
-        //this.name = 'GrubBox';
 
         // -------- BOXES --------//
         // need to find some way to make multiple
         // Create multiple boxes for pushing
         const groundTexture = new TextureLoader().load(
-            'src/components/objects/Land/nerd.jpeg'
+            'src/components/objects/Land/con.jpeg'
         );
         for (var i = -3; i < 4; i++) {
             for (var j = 1; j < 4; j++) {
@@ -136,9 +103,7 @@ class SeedScene extends Scene {
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
                 box.position.set(2 * i, 2 * j, -1 / 32);
-                // kinda buggy
-                // box.position.set(Math.floor(Math.random() * window.innerHeight) - (window.innerHeight / 2), Math.floor(Math.random() * window.innerWidth) - (window.innerWidth / 2), 0);
-                this.add(box);
+                               this.add(box);
                 this.addToUpdateList(box);
                 boxes.push(box);
             }
@@ -148,7 +113,6 @@ class SeedScene extends Scene {
         // --- PLAYER MOVEMENT --- //
         //const playerSize = ;
         const speed = 1;
-        window.addEventListener('keydown', this.onKeyDown, true);
         this.onKeyDown = (event) => {
             
             let old_player_pos = player.position.clone();
@@ -206,24 +170,22 @@ class SeedScene extends Scene {
             }
            
 
-            if (event.keyCode == 32) {
+            if (event.keyCode == 32 && !this.dialogueHappened) {
                 if (player_box.boundingBox.intersectsBox(grub_box.boundingBox)){
-                    this.dialogue();
+                    this.dialogue(player_box, grub_box);
                 }
             }
-            console.log("IN GRUBER", player_box.boundingBox.intersectsBox(grub_box.boundingBox))
-            // console.log(player_box.position)
-            // console.log(grub_box.position)
-            // if (player_box.boundingBox.intersectsBox(grub_box.boundingBox)) {
-            // // interact with element
-            //     player.position.x = old_player_pos.x;
-            //     player.position.y = old_player_pos.y;
-            //     player_box.position.x = old_player_box_pos.x;
-            //     player_box.position.y = old_player_box_pos.y;
-            //     console.log("INSIDE GRUB", event.keyCode)
-            //     console.log("BOUNDING BOX", player_box.position)
-            //     console.log("BOUNDING BOX", grub_box.position)
-            // }
+
+            // Zoom out
+            if (event.code === 'KeyZ' || event.key === 'z') {
+                this.camera.zoom -= 0.05;
+                this.windowResizeHandler();
+            }
+            // Zoom in
+            if (event.code === 'KeyX' || event.key === 'x') {
+                this.camera.zoom += 0.1;
+                this.windowResizeHandler();
+            }
         }
         // ----------------------- //
         // -------- ADDING OBJECTS TO SCENE --------- //
@@ -231,7 +193,6 @@ class SeedScene extends Scene {
         this.add(land, lights, player, grub, player_box, grub_box);
 
     }
-
 
 
     addToUpdateList(object) {
@@ -250,22 +211,6 @@ class SeedScene extends Scene {
                     .applyMatrix4(obj.matrixWorld);
             }
 
-            // player_box.boundingBox
-            // .copy(player_box.geometry.boundingBox)
-            // .applyMatrix4(player_box.matrixWorld);
-            // grub_box.boundingBox
-            // .copy(grub_box.geometry.boundingBox)
-            // .applyMatrix4(grub_box.matrixWorld);
-            // Call update for each object in the updateList
-
-            // for (var i = 0; i < boxes.length; i++)
-            //     boxes[i].boundingBox
-            //         .copy(boxes[i].geometry.boundingBox)
-            //         .applyMatrix4(boxes[i].matrixWorld);
-            // room.boundingBox
-            //     .copy(room.geometry.boundingBox)
-            //     .applyMatrix4(room.matrixWorld);
-            // }
         }
 
     }
@@ -277,19 +222,48 @@ class SeedScene extends Scene {
         window.addEventListener('keydown', this.onKeyDown, true);
     }
 
-    dialogue(){
+    removeEvents() {
+        window.removeEventListener('resize', this.windowResizeHandler, false);
+        window.removeEventListener('keydown', this.onKeyDown, false);
+    }
+
+    dialogue(player, grub){
+        var player_pos = player.position.clone();
+        // console.log(this.camera.position)
+        // this.camera.position.x = player_pos.x;
+        // this.camera.position.y = player_pos.y;
+        // this.camera.position.z = grub.position.z;
+        // console.log(this.camera.position)
+
+        // Add cube to back
+        const boxGeometry = new BoxGeometry(window.innerWidth / -90, window.innerHeight / -1000, 1);
+        // const boxMaterial = new MeshBasicMaterial({color: 0x9b673c});
+        
+        const boxMaterial = new MeshBasicMaterial({color: 0xffffff});
+        var cube = new Mesh(boxGeometry, boxMaterial);
+        cube.position.set(window.innerWidth / -700, window.innerHeight / -150, player_pos.z);
+        console.log(cube.position)
+        this.add(cube);
+
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry('ASDFADSFADSFASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASDFADSFADSFASDASD!', {
+            const textGeometry = new TextGeometry('text', {
                 font: font,
                 size: 0.5,
                 height: 0,
             });
             Scenes.scenes['SeedScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-            Scenes.scenes['SeedScene'].textMesh.position.set(0, 0, 2);
+            Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -140, window.innerHeight / -140, player_pos.z);
             Scenes.scenes['SeedScene'].add(Scenes.scenes['SeedScene'].textMesh);
         });
+        this.dialogueContinue = (event) => {
+            if (event.key !== ' ') return;
+            // Scenes.scenes['SeedScene'].remove(Scenes.scenes['SeedScene'].textMesh);
+        }
+        window.removeEventListener('keydown', this.onKeyDown, false);
+        window.addEventListener('keydown', this.dialogueContinue, false);
+        this.dialogueHappened = true;
     }
 }
 function hasIntersection(object, boxes) {
@@ -306,68 +280,32 @@ function collision(object, direction, boxes) {
         if (object.boundingBox.intersectsBox(boxes[i].boundingBox)) {
             if (direction === 'down' && boxes[i].position.y <= object.position.y) {console.log("DOWN 1")
                 if (boxes[i].position.x >= object.position.x && boxes[i].position.x <= object.position.x) {
-                    //objectFound = true;
-                    // if outside boundary of the room/plane, set to room bounding
-                    // if (room.boundingBox.min.y > boxes[i].position.y - boxSpeed)
-                    //     boxes[i].position.y = room.boundingBox.min.y + 20;
 
-                    // for (let j = 0; j < boxes.length; j++) {
-                    //     if (object.boundingBox.intersectsBox(boxes[j].boundingBox) && boxes[j].position.y <= boxes[i].position.y) {
-                    //             if (boxes[j].position.x >= boxes[i].position.x && boxes[j].position.x <= boxes[i].position.x) {
-                    //             boxes[j].position.y -= boxSpeed;
-
-                    //            }
-                    //         }
-                    //     }
-                    
                     boxes[i].position.y -= boxSpeed;
                     console.log("DOWN 2")
                 }
-                // if player still coliding after pushed (potentially not use direction but see which side its closest) (buggy)
-                // if (player.boundingBox.intersectsBox(boxes[i].boundingBox))
-                //     player.position.y = boxes[i].boundingBox.max.y + 5;
+
             }
             if (direction === 'up' && boxes[i].position.y >= object.position.y) {
                 if (boxes[i].position.x >= object.position.x && boxes[i].position.x <= object.position.x) {
-                    
-                    // if (room.boundingBox.max.y < boxes[i].position.y + boxSpeed)
-                    //     boxes[i].position.y = room.boundingBox.max.y - 20;
-                    // while (hasIntersection(boxes[i], boxes)) {
-                    //     //console.log('hello')
-                    // collision(boxes[i], direction, boxes)
-                    // }
                     boxes[i].position.y += boxSpeed;
                 }
-                // if (player.boundingBox.intersectsBox(boxes[i].boundingBox))
-                //     player.position.y = boxes[i].boundingBox.min.y;
+
             }
             if (direction === 'left' && boxes[i].position.x <= object.position.x) {
                 if (boxes[i].position.y >= object.position.y && boxes[i].position.y <= object.position.y) {
-                    // if (room.boundingBox.min.x > boxes[i].position.x - boxSpeed)
-                    //     boxes[i].position.x = room.boundingBox.min.x + 20;
+
                     boxes[i].position.x -= boxSpeed;
                 }
-                // if (player.boundingBox.intersectsBox(boxes[i].boundingBox))
-                //     player.position.x = boxes[i].boundingBox.max.x + 5;
+   
             }
             if (direction === 'right' && boxes[i].position.x >= object.position.x) {
                 if (boxes[i].position.y >= object.position.y && boxes[i].position.y <= object.position.y) {
-
-                    // if (room.boundingBox.max.x < boxes[i].position.x + boxSpeed)
-
-                    // boxes[i].position.x = room.boundingBox.max.x - 20;
                     boxes[i].position.x += boxSpeed;
                 }
-                // if (player.boundingBox.intersectsBox(boxes[i].boundingBox))
-                //     player.position.x = boxes[i].boundingBox.min.x - 5;
+
             }
-            // boxes[i].geometry.computeBoundingBox();
-            // boxes[i].boundingBox = boxes[i].geometry.boundingBox.clone();
-            // object.geometry.computeBoundingBox();
-            // object.boundingBox = object.geometry.boundingBox.clone();
         }
-      
-        //if (this.boundingBox.min.y >)
 
     }
 
