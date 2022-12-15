@@ -64,9 +64,11 @@ class SeedScene extends Scene {
         var playerGeometry = new BoxGeometry(1, 1, 1);
         var playerMaterial = new MeshBasicMaterial({
 
+            transparent: true,
+            opacity: 0
             //--- wire box code ---//
-            color: 0xff0000,
-            wireframe: true,
+            // color: 0xff0000,
+            // wireframe: true,
         });
 
         var player_box = new Mesh(playerGeometry, playerMaterial);
@@ -80,11 +82,12 @@ class SeedScene extends Scene {
         // ---- GRUB BOUNDING BOX ---//
         var playerGeometry = new BoxGeometry(1, 1, 1);
         var playerMaterial = new MeshBasicMaterial({
-
+            transparent: true,
+            opacity: 0
 
             //--- wire box code ---//
-            color: 0xff0000,
-            wireframe: true,
+            // color: 0xff0000,
+            // wireframe: true,
         });
         var grub_box = new Mesh(playerGeometry, playerMaterial);
         grub_box.geometry.computeBoundingBox();
@@ -119,11 +122,13 @@ class SeedScene extends Scene {
                 const boxTexture = new TextureLoader().load(
                     letters[counter]
                 );
+                console.log("LETTER",  letters[counter])
                 const box = new Mesh(
                     new BoxGeometry(1, 1, 1),
                     // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
-                    new MeshBasicMaterial({name:counter, map: boxTexture })
+                    new MeshBasicMaterial({ map: boxTexture })
                 );
+                box.name =  letters[counter]
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
                 box.position.set(2 * i, 2 * j, -1 / 32);
@@ -138,13 +143,13 @@ class SeedScene extends Scene {
         var holes = []
         for (let index = 0; index < 5; index++) {
             const box = new Mesh(
-                new BoxGeometry(1, 1, 1),
+                new BoxGeometry(0.9, 0.9, 1),
                 // new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
-                new MeshBasicMaterial({name:index,  color: 0x00ff00, wireframe: true }));
+                new MeshBasicMaterial({color: 0x00ff00, wireframe: true }));
                 box.geometry.computeBoundingBox();
                 box.boundingBox = box.geometry.boundingBox.clone();
                 box.position.set(2 * (index-2), -3, -1 / 32);
-                               this.add(box);
+                this.add(box);
                 this.addToUpdateList(box);
                 //boxes.push(box);
                 holes.push(box);
@@ -170,6 +175,7 @@ class SeedScene extends Scene {
 // ----- SOUND PT 2 ----- //
     // load a sound and set it as the Audio object's buffer
     // chrome requires user input to start audio so need to be on a key pressed or smth
+    // console.log(player_box.boundingBox.intersectsBox(holes[0].boundingBox))
     const audioLoader = new AudioLoader();
     // replace music
     audioLoader.load(
@@ -404,18 +410,19 @@ class SeedScene extends Scene {
         this.dialogueHappened = true;
     }
 }
+// WINNING IF IT IS PUT WITH LETTERS FRIST
 function checkWin(boxes, holes) {
     // box: 5 , 17 , 8 , 18 , 19
     // holes: 0 , 1 , 2 , 3 , 4
-    console.log(boxes[5].name)
-    if(boxes[5].boundingBox.intersectsBox(holes[0]) ) 
-   // boxes[17].boundingBox.intersectsBox(holes[1]) &&
-   // boxes[8].boundingBox.intersectsBox(holes[2]) &&
-   // boxes[18].boundingBox.intersectsBox(holes[3]) &&
-   // boxes[19].boundingBox.intersectsBox(holes[4])) {
+
+    if(boxes[5].boundingBox.intersectsBox(holes[0].boundingBox) &&
+   boxes[17].boundingBox.intersectsBox(holes[1].boundingBox) &&
+   boxes[8].boundingBox.intersectsBox(holes[2].boundingBox) &&
+   boxes[18].boundingBox.intersectsBox(holes[3].boundingBox) &&
+   boxes[19].boundingBox.intersectsBox(holes[4].boundingBox))
         return true
     else
-    return false
+        return false
 }
 function hasIntersection(object, boxes) {
     for (let i = 0; i < boxes.length; i++) {
