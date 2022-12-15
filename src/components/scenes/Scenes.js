@@ -5,6 +5,7 @@ import SeedSceneThree from './SeedSceneThree';
 import Intro from './Intro';
 import TransitionOne from './TransitionOne';
 import TransitionTwo from './TransitionTwo';
+import End from './End';
 class Scenes {
     constructor(){
         this.scenes = {};
@@ -23,6 +24,7 @@ class Scenes {
         this.scenes['Transition'] = new Transition();
         this.scenes['TransitionTwo'] = new Transition();
 
+        this.scenes['End'] = new End();
 
         this.currentScene = this.scenes['Intro'];
         this.currentScene.addEvents();

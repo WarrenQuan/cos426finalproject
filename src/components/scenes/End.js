@@ -14,7 +14,7 @@ import { BasicLights } from 'lights';
 import { PixelFont } from '../objects/Fonts';
 import { Scenes } from '.';
 
-class Intro extends Scene {
+class End extends Scene {
     constructor() {
         // Call parent Scene() constructor
         super();
@@ -25,7 +25,7 @@ class Intro extends Scene {
         };
 
         // Set background to a nice color
-        this.background = new Color(0x252b39);
+        this.background = new Color(0xff5e00);
         this.dialogueHappened = false;
 
         // -------- ADDING MESHES --------- //
@@ -141,132 +141,61 @@ class Intro extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry("you're finally awake", {
+            const textGeometry = new TextGeometry("You've proved yourself worthy to rejoin the orange bubble", {
                 font: font,
-                size: 0.08,
+                size: 0.04,
                 height: 0,
             });
-            Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-            Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-            Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);    
+            Scenes.scenes['End'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+            Scenes.scenes['End'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+            Scenes.scenes['End'].add(Scenes.scenes['End'].textMesh);    
         });
         
         this.dialogueContinue = (event) => {
             //if (event.key !== ' ') return;
-            if (count >= 7){
-                this.remove(Scenes.scenes['Intro'].textMesh);  
+            if (count >= 3){
+                this.remove(Scenes.scenes['End'].textMesh);  
                 window.addEventListener('keydown', this.onKeyDown, false);
                 window.removeEventListener('keydown', this.dialogueContinue, false); 
                 Scenes.switchScene('SeedScene');
             }
             else if (count === 1){
-                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
+                Scenes.scenes['End'].remove(Scenes.scenes['End'].textMesh);  
                 loader.load(
                     PixelFont,
                     function(font) {
-                        const textGeometry = new TextGeometry( "You are probably wondering why you are here",
+                        const textGeometry = new TextGeometry( "Make sure to keep up the good work....",
                             {
                                 font: font,
                                 size: 0.06,
                                 height: 0
                             }
                         );
-                        Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
+                        Scenes.scenes['End'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['End'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['End'].add(Scenes.scenes['End'].textMesh);
                     }
                 );  
             }
-            else if (count === 3){
-                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
+            else if (count === 2){
+                Scenes.scenes['End'].remove(Scenes.scenes['End'].textMesh);  
                 loader.load(
                     PixelFont,
                     function(font) {
-                        const textGeometry = new TextGeometry( "As you know, Princeton represents the height of intellectualism.",
+                        const textGeometry = new TextGeometry( "I'll be watching....",
                             {
                                 font: font,
                                 size: 0.05,
                                 height: 0
                             }
                         );
-                        Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
+                        Scenes.scenes['End'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
+                        Scenes.scenes['End'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+                        Scenes.scenes['End'].add(Scenes.scenes['End'].textMesh);
                     }
                 );  
             }
-            else if (count === 4){
-                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
-                loader.load(
-                    PixelFont,
-                    function(font) {
-                        const textGeometry = new TextGeometry( "We have no place for those falling into academic mediocracy...",
-                            {
-                                font: font,
-                                size: 0.045,
-                                height: 0
-                            }
-                        );
-                        Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
-                    }
-                );  
-            }
-            else if (count === 5){
-                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
-                loader.load(
-                    PixelFont,
-                    function(font) {
-                        const textGeometry = new TextGeometry( "Since you got a low low score of 95 on your last COS 426 assignment,",
-                            {
-                                font: font,
-                                size: 0.04,
-                                height: 0
-                            }
-                        );
-                        Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
-                    }
-                );  
-            }
-            else if (count === 6){
-                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
-                loader.load(
-                    PixelFont,
-                    function(font) {
-                        const textGeometry = new TextGeometry( "you must now prove that you are still worthy of being a student here.",
-                            {
-                                font: font,
-                                size: 0.04,
-                                height: 0
-                            }
-                        );
-                        Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
-                    }
-                );  
-            }
-            else if (count === 6){
-                Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
-                loader.load(
-                    PixelFont,
-                    function(font) {
-                        const textGeometry = new TextGeometry( "Talk to me again when you are ready to answer my riddles...",
-                            {
-                                font: font,
-                                size: 0.04,
-                                height: 0
-                            }
-                        );
-                        Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
-                        Scenes.scenes['Intro'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
-                        Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);
-                    }
-                );  
-            }
+            
             count++;
         }
         
@@ -276,4 +205,4 @@ class Intro extends Scene {
     }
 }
 
-export default Intro;
+export default End;
