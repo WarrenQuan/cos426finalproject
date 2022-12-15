@@ -7,8 +7,8 @@ class Land extends Group {
         super()
         this.name = 'land'
         const roomGeometry = new PlaneGeometry(
-            window.innerWidth/50 - 2,
-            window.innerWidth/50 - 2
+            14,
+            14
         );
         const groundTexture = new TextureLoader().load(
             'src/components/objects/Land/dungeontexture.jpeg'
@@ -25,12 +25,16 @@ class Land extends Group {
             side: DoubleSide,
         });
         
-        const room = new Mesh(roomGeometry, roomMaterial);
-        room.geometry.compu;
-        room.position.set(0, 0, 0);
-        this.add(room);
-        room.geometry.computeBoundingBox();
-        room.boundingBox = room.geometry.boundingBox.clone();
+        this.room = new Mesh(roomGeometry, roomMaterial);
+        this.room.position.set(0, 0, 0);
+        this.add(this.room);
+        this.room.geometry.computeBoundingBox();
+        this.room.boundingBox = this.room.geometry.boundingBox.clone();
+    }
+
+    getBoundingBox() {
+        console.log(this.room.boundingBox)
+        return this.room.boundingBox
     }
 }
 
