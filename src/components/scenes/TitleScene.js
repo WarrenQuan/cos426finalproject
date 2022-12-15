@@ -29,6 +29,7 @@ class TitleScene extends Scene {
         // Set background to a nice color
         //this.background = new Color(0x7ec0ee);
         this.dialogueHappened = false;
+        this.nextScene = false;
 
         // -------- ADDING MESHES --------- //
         const title = new Title (0, 0, 0);
@@ -105,12 +106,24 @@ class TitleScene extends Scene {
     // ----- SOUND PT 2 ----- //
 
 
+            // let happen = true;
             if (event.keyCode == 32) {
                 // change scene
-                Scenes.switchScene('Intro')
+                this.nextScene = true;
+                this.switchScene();
+                //happen = false
+               // event.end
             }
 
         }
+        this.switchScene = (event) => {
+            if (this.nextScene){
+                console.log("switching")
+                window.removeEventListener('keydown', this.onKeyDown, false);
+                Scenes.switchScene('Intro');
+            }
+        }
+            
         // ----------------------- //
         // -------- ADDING OBJECTS TO SCENE --------- //
         //   console.log("OBJECT 2" , player_box.boundingBox)
@@ -145,7 +158,7 @@ class TitleScene extends Scene {
 
     removeEvents() {
         window.removeEventListener('resize', this.windowResizeHandler, false);
-        window.removeEventListener('keydown', this.onKeyDown, false);
+        window.removeEventListener('keydown', this.onKeyDown, true);
     }
 
     dialogue(player, grub){

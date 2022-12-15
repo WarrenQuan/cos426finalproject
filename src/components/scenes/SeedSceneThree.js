@@ -405,18 +405,20 @@ class SeedSceneThree extends Scene {
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {
-            const textGeometry = new TextGeometry('Where do people flock to late meal?', {
+            const textGeometry = new TextGeometry('What is the train of Princeton?', {
                 font: font,
                 size: 0.3,
                 height: 0,
             });
             Scenes.scenes['SeedSceneThree'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
-            Scenes.scenes['SeedSceneThree'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
+            //Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1.5);
+            Scenes.scenes['SeedSceneThree'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 2);
+
             Scenes.scenes['SeedSceneThree'].add(Scenes.scenes['SeedSceneThree'].textMesh);
         });
         this.dialogueContinue = (event) => {
             if (event.key !== ' ') return;
-            // Scenes.scenes['SeedSceneThree'].remove(Scenes.scenes['SeedSceneThree'].textMesh);
+            // Scenes.scenes['SeedScene'].remove(Scenes.scenes['SeedScene'].textMesh);
         }
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);

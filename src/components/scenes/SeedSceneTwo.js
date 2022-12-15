@@ -410,12 +410,14 @@ class SeedSceneTwo extends Scene {
                 height: 0,
             });
             Scenes.scenes['SeedSceneTwo'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0x000000}));
-            Scenes.scenes['SeedSceneTwo'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1);
+            //Scenes.scenes['SeedScene'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 1.5);
+            Scenes.scenes['SeedSceneTwo'].textMesh.position.set(window.innerWidth / -150, window.innerHeight / -150, player_pos.z + 2);
+
             Scenes.scenes['SeedSceneTwo'].add(Scenes.scenes['SeedSceneTwo'].textMesh);
         });
         this.dialogueContinue = (event) => {
             if (event.key !== ' ') return;
-            // Scenes.scenes['SeedSceneTwo'].remove(Scenes.scenes['SeedSceneTwo'].textMesh);
+            // Scenes.scenes['SeedScene'].remove(Scenes.scenes['SeedScene'].textMesh);
         }
         window.removeEventListener('keydown', this.onKeyDown, false);
         window.addEventListener('keydown', this.dialogueContinue, false);

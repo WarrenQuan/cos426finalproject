@@ -24,10 +24,14 @@ class Scenes {
         this.scenes['SeedSceneThree'] = new SeedSceneThree();
         this.scenes['TransitionOne'] = new TransitionOne();
         this.scenes['TransitionTwo'] = new TransitionTwo();
+        this.scenes['TitleScene'] = new TitleScene();
+        this.scenes['End'] = new End();
+
 
 
         this.currentScene = this.scenes['TitleScene'];
         this.currentScene.addEvents();
+        console.log(this.scenes)
     }
 
     switchScene(sceneKey) {
