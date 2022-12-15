@@ -3,11 +3,11 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './land.gltf';
 
 class Land extends Group {
-    constructor() {
+    constructor(x, y, z) {
         super()
         this.name = 'land'
         const roomGeometry = new PlaneGeometry(
-            14,
+            20,
             14
         );
         const groundTexture = new TextureLoader().load(
@@ -26,7 +26,7 @@ class Land extends Group {
         });
         
         this.room = new Mesh(roomGeometry, roomMaterial);
-        this.room.position.set(0, 0, 0);
+        this.room.position.set(x, y, z);
         this.add(this.room);
         this.room.geometry.computeBoundingBox();
         this.room.boundingBox = this.room.geometry.boundingBox.clone();

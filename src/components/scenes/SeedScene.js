@@ -23,7 +23,6 @@ class SeedScene extends Scene {
 
         // Init state
         this.state = {
-            gui: new Dat.GUI(), // Create GUI for scene
             updateList: [],
         };
 
@@ -32,7 +31,7 @@ class SeedScene extends Scene {
         this.dialogueHappened = false;
 
         // -------- ADDING MESHES --------- //
-        const land = new Land();
+        const land = new Land (0, 0, 0);
         land.boundingBox = land.getBoundingBox()
         // const flower = new Flower(this);
         const lights = new BasicLights();
