@@ -3,6 +3,8 @@ import SeedScene from './SeedScene';
 import SeedSceneTwo from './SeedSceneTwo';
 import SeedSceneThree from './SeedSceneThree';
 import Intro from './Intro';
+import TransitionOne from './TransitionOne';
+import TransitionTwo from './TransitionTwo';
 import End from './End';
 class Scenes {
     constructor(){
@@ -19,6 +21,9 @@ class Scenes {
         this.scenes['SeedScene'] = new SeedScene();
         this.scenes['SeedSceneTwo'] = new SeedSceneTwo();
         this.scenes['SeedSceneThree'] = new SeedSceneThree();
+        this.scenes['Transition'] = new Transition();
+        this.scenes['TransitionTwo'] = new Transition();
+
         this.scenes['End'] = new End();
 
         this.currentScene = this.scenes['End'];

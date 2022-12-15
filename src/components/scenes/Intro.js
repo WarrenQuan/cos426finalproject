@@ -177,7 +177,7 @@ class Intro extends Scene {
                     }
                 );  
             }
-            else if (count === 2){
+            else if (count === 3){
                 Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
                 loader.load(
                     PixelFont,
@@ -195,7 +195,7 @@ class Intro extends Scene {
                     }
                 );  
             }
-            else if (count === 3){
+            else if (count === 4){
                 Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
                 loader.load(
                     PixelFont,
@@ -213,7 +213,7 @@ class Intro extends Scene {
                     }
                 );  
             }
-            else if (count === 4){
+            else if (count === 5){
                 Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
                 loader.load(
                     PixelFont,
@@ -231,7 +231,7 @@ class Intro extends Scene {
                     }
                 );  
             }
-            else if (count === 5){
+            else if (count === 6){
                 Scenes.scenes['Intro'].remove(Scenes.scenes['Intro'].textMesh);  
                 loader.load(
                     PixelFont,
