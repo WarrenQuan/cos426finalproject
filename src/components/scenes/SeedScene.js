@@ -73,7 +73,7 @@ class SeedScene extends Scene {
         var player_box = new Mesh(playerGeometry, playerMaterial);
         player_box.geometry.computeBoundingBox();
         player_box.boundingBox = player_box.geometry.boundingBox.clone();
-        player_box.position.set(0, 0, -1 / 32);
+        player_box.position.set(1, 0, -1 / 32);
         this.addToUpdateList(player_box);
 
         //----------PLAYER BOUNDING BOX END-----------//
@@ -387,7 +387,7 @@ class SeedScene extends Scene {
         
         const boxMaterial = new MeshBasicMaterial({color: 0xeee9d4});
         var cube = new Mesh(boxGeometry, boxMaterial);
-        cube.position.set(window.innerWidth / -700, window.innerHeight / -150, player_pos.z);
+        cube.position.set(window.innerWidth / -700, window.innerHeight / -150, 1);
         console.log(cube.position)
         this.add(cube);
 
