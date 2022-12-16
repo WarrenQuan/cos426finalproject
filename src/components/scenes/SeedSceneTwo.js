@@ -62,6 +62,20 @@ class SeedSceneTwo extends Scene {
             this.camera.updateProjectionMatrix();
         };
 
+        const loader = new FontLoader();
+        this.textMesh;
+        loader.load(PixelFont, function (font) {
+            const textGeometry2 = new TextGeometry("Lvl 1: Use arrow keys to move and space to interact with Eisguber", {
+                font: font,
+                size: 0.3,
+                height: 0,
+            });
+            Scenes.scenes['SeedSceneTwo'].textMesh = new Mesh(textGeometry2, new MeshPhongMaterial({color: 0xffffff}));
+            //Scenes.scenes['TitleScene'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+            Scenes.scenes['SeedSceneTwo'].add(Scenes.scenes['SeedSceneTwo'].textMesh);       
+            Scenes.scenes['SeedSceneTwo'].textMesh.position.set(-9.5, -6.5, 0);
+
+        });
         // ---- PLAYER BOUNDING BOX ---//
         var playerGeometry = new BoxGeometry(1, 1, 1);
         var playerMaterial = new MeshBasicMaterial({

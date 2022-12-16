@@ -11,7 +11,7 @@ class Title extends Group {
             14
         );
         const groundTexture = new TextureLoader().load(
-            'src/components/objects/Title/Title.jpg'
+            'src/components/objects/Title/title.png'
         );
 
         

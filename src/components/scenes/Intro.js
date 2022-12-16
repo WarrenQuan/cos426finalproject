@@ -53,6 +53,8 @@ class Intro extends Scene {
             this.camera.updateProjectionMatrix();
         };
 
+       
+
         // -------- SOUND CODE PT 1 START ---------- //
         // create an AudioListener and add it to the camera
         const listener = new AudioListener();
@@ -97,6 +99,20 @@ class Intro extends Scene {
                 this.windowResizeHandler();
             }
         }
+        const loader = new FontLoader();
+        this.textMesh;
+        loader.load(PixelFont, function (font) {
+            const textGeometry2 = new TextGeometry("Eisgruber", {
+                font: font,
+                size: 0.1,
+                height: 0,
+            });
+            Scenes.scenes['Intro'].textMesh = new Mesh(textGeometry2, new MeshPhongMaterial({color: 0xffffff}));
+            //Scenes.scenes['TitleScene'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
+            Scenes.scenes['Intro'].add(Scenes.scenes['Intro'].textMesh);       
+            Scenes.scenes['Intro'].textMesh.position.set(grub.position.x+1.5, grub.position.y + 1, grub.position.z);
+
+        });
         // ----------------------- //
         // -------- ADDING OBJECTS TO SCENE --------- //
         //   console.log("OBJECT 2" , player_box.boundingBox)

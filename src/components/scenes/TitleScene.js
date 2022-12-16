@@ -79,14 +79,15 @@ class TitleScene extends Scene {
         loader.load(PixelFont, function (font) {
             const textGeometry = new TextGeometry("Press space to continue", {
                 font: font,
-                size: 0.3,
+                size: 0.4,
                 height: 0,
             });
             Scenes.scenes['TitleScene'].textMesh = new Mesh(textGeometry, new MeshPhongMaterial({color: 0xffffff}));
             //Scenes.scenes['TitleScene'].textMesh.position.set(grub_position.x, grub_position.y, grub_position.z + 0.2);
             Scenes.scenes['TitleScene'].add(Scenes.scenes['TitleScene'].textMesh);       
-            Scenes.scenes['TitleScene'].textMesh.position.set(-2.5, -4, 0);
+            Scenes.scenes['TitleScene'].textMesh.position.set(-3.5, -4, 0);
         });
+      
         this.onKeyDown = (event) => {
 // ----- SOUND PT 2 ----- //
     // load a sound and set it as the Audio object's buffer
