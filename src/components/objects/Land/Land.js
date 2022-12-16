@@ -1,6 +1,10 @@
+require('./scene.bin');
+
+//Put your textures here
+require('./textures/con.jpeg');
+
 import { Group, PlaneGeometry, TextureLoader,RepeatWrapping,sRGBEncoding,MeshBasicMaterial,DoubleSide,Mesh} from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import MODEL from './land.gltf';
 
 class Land extends Group {
     constructor(x, y, z) {
