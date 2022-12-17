@@ -1,10 +1,11 @@
 import * as Dat from 'dat.gui';
+import {FontLoader} from 'three/examples/jsm/loaders/FontLoader.js'
+import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry.js'
+
 import {
     Scene,
     Color,
     MeshPhongMaterial,
-    FontLoader,
-    TextGeometry,
     PerspectiveCamera,
     OrthographicCamera,
 } from 'three';
@@ -99,6 +100,8 @@ class Intro extends Scene {
                 this.windowResizeHandler();
             }
         }
+
+    
         const loader = new FontLoader();
         this.textMesh;
         loader.load(PixelFont, function (font) {

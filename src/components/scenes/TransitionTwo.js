@@ -3,8 +3,6 @@ import {
     Scene,
     Color,
     MeshPhongMaterial,
-    FontLoader,
-    TextGeometry,
     PerspectiveCamera,
     OrthographicCamera,
 } from 'three';

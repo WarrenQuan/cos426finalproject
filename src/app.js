@@ -28,6 +28,37 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3, OrthographicCamera, TextGeometry, FontLoader } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 // import { SeedScene } from 'scenes';
+require('./assets/letters/a.jpg')
+require('./assets/letters/b.jpg')
+require('./assets/letters/c.jpg')
+require('./assets/letters/d.jpg')
+require('./assets/letters/e.jpg')
+require('./assets/letters/f.jpg')
+require('./assets/letters/g.jpg')
+require('./assets/letters/h.jpg')
+require('./assets/letters/i.jpg')
+require('./assets/letters/j.jpg')
+require('./assets/letters/k.jpg')
+require('./assets/letters/l.jpg')
+require('./assets/letters/m.jpg')
+require('./assets/letters/n.jpg')
+require('./assets/letters/o.jpg')
+require('./assets/letters/p.jpg')
+require('./assets/letters/q.jpg')
+require('./assets/letters/r.jpg')
+require('./assets/letters/s.jpg')
+require('./assets/letters/t.jpg')
+require('./assets/letters/u.jpg')
+require('./assets/letters/v.jpg')
+require('./assets/letters/w.jpg')
+require('./assets/letters/x.jpg')
+require('./assets/letters/y.jpg')
+require('./assets/letters/z.jpg')
+require('./assets/glass.png')
+
+
+require('./sounds/dungeon.mp3');
+require('./sounds/Old Nassau - 2020 Virtual Commencement.mp3');
 
 import { Scenes } from 'scenes';
 Scenes.create();
@@ -35,17 +66,17 @@ Scenes.create();
 // // Initialize core ThreeJS components
 // const scene = new SeedScene();
 // //const camera = new PerspectiveCamera();
-// const renderer = new WebGLRenderer({ antialias: true });
+const renderer = new WebGLRenderer({ antialias: true });
 
-// makes the camera top down (Orthographic Camera)
-// const camera = new OrthographicCamera(
-//     window.innerWidth / -140,
-//     window.innerWidth / 140,
-//     window.innerHeight / 140,
-//     window.innerHeight / -140,
-//     0,
-//     1000
-// );
+//makes the camera top down (Orthographic Camera)
+const camera = new OrthographicCamera(
+    window.innerWidth / -140,
+    window.innerWidth / 140,
+    window.innerHeight / 140,
+    window.innerHeight / -140,
+    0,
+    1000
+);
 
 // import { Scenes } from 'src/components/scenes';
 // Scenes.create();
@@ -65,13 +96,13 @@ document.body.appendChild(canvas);
 // // can use lookAt to follow player position too
 // camera.lookAt(0, 0, 0);
 
-// Set up controls
-// const controls = new OrbitControls(camera, canvas);
-// controls.enableDamping = true;
-// controls.enablePan = false;
-// controls.minDistance = 4;
-// controls.maxDistance = 16;
-// controls.update();
+//Set up controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.enablePan = false;
+controls.minDistance = 4;
+controls.maxDistance = 16;
+controls.update();
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {

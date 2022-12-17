@@ -1,9 +1,10 @@
-import { Group, TextGeometry, FontLoader, Font, MeshPhongMaterial, Mesh} from 'three';
+
+import { Group, Font, MeshPhongMaterial, Mesh} from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './untitled.gltf';
 import HelvetikerFontPath from 'three/examples/fonts/helvetiker_regular.typeface.json';
-import { PixelFont } from '../fonts'
+import { PixelFont } from '../Fonts'
 
 class Text extends Group {
     constructor(parent) {

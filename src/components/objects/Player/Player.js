@@ -1,3 +1,7 @@
+
+//Put your textures here
+//require('./untitled.gltf');
+
 import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
