@@ -97,7 +97,7 @@ class SeedScene extends Scene {
         //----------PLAYER BOUNDING BOX END-----------//
 
         // ---- GRUB BOUNDING BOX ---//
-        var playerGeometry = new BoxGeometry(1, 1, 1);
+        var playerGeometry = new BoxGeometry(1, 1, 1); 
         var playerMaterial = new MeshBasicMaterial({
             transparent: true,
             opacity: 0
